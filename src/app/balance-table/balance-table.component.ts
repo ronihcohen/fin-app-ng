@@ -1,6 +1,15 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+export interface Record {
+  title: string;
+  amount: number;
+  category: string;
+  date: Date;
+}
+export interface Doc { records: Record[]; }
 
 @Component({
   selector: 'app-balance-table',
@@ -9,17 +18,15 @@ import { Observable } from 'rxjs';
 })
 export class BalanceTableComponent implements OnInit {
   @Input() uid: String;
-  items: Observable<any[]>;
-  private itemDoc: AngularFirestoreDocument<any[]>;
-  db: AngularFirestore;
+  records: Observable<Record[]>;
+  private doc: AngularFirestoreDocument<Doc>;
 
-  constructor(db: AngularFirestore) {
-    this.db = db;
+  constructor(private db: AngularFirestore) {
   }
 
   ngOnInit() {
-    this.itemDoc = this.db.doc<any[]>(`balance/${this.uid}`);
-    this.items = this.itemDoc.valueChanges();
+    this.doc = this.db.doc<Doc>(`balance/${this.uid}`);
+    this.records = this.doc.valueChanges().pipe(map(doc => doc.records));
   }
 
 }
