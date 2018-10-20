@@ -19,7 +19,7 @@ export class RecordsComponent implements OnInit {
   }
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['title', 'amount'];
+  displayedColumns = ['title', 'amount', 'date'];
 
   ngOnInit() {
     this.dataSource = new RecordsDataSource(this.paginator, this.sort, this.records, this.uid);

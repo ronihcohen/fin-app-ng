@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { map } from 'rxjs/operators';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 
 export interface Record {
   title: string;
@@ -14,13 +13,14 @@ export interface Doc { records: Record[]; }
   providedIn: 'root'
 })
 export class RecordsService {
-  private doc: AngularFirestoreDocument<Doc>;
-
-  constructor(private db: AngularFirestore
+  private recordsCollection: AngularFirestoreCollection<Record[]>;
+  constructor(private afs: AngularFirestore
   ) { }
 
   getRecords(uid) {
-    this.doc = this.db.doc<Doc>(`balance/${uid}`);
-    return this.doc.valueChanges().pipe(map(doc => doc.records));
+    this.recordsCollection = this.afs.collection<Record[]>('records', ref => ref
+      .where('uid', '==', uid)
+      .orderBy('amount', 'asc'));
+    return this.recordsCollection.valueChanges();
   }
 }
