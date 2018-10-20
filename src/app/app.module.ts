@@ -19,17 +19,20 @@ import {
   MatButtonModule,
   MatTableModule,
   MatPaginatorModule,
-  MatSortModule
+  MatSortModule, MatInputModule, MatSelectModule, MatRadioModule
 } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { RecordsComponent } from './records/records.component';
-import { RecordsService } from './records.service'
+import { RecordsService } from './records.service';
+import { AddRecordComponent } from './add-record/add-record.component';
+import { ReactiveFormsModule } from '@angular/forms'
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RecordsComponent
+    RecordsComponent,
+    AddRecordComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,11 @@ import { RecordsService } from './records.service'
     LayoutModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatInputModule,
+    MatSelectModule,
+    MatRadioModule,
+    ReactiveFormsModule
   ],
   bootstrap: [AppComponent],
   providers: [AngularFirestore, AngularFireAuth, RecordsService]

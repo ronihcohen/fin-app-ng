@@ -1,6 +1,7 @@
 <div *ngIf="afAuth.user | async as user; else showLogin">
-  <p>Hello {{ user.displayName }}!</p>
+  <p>Hello {{ user.displayName }} = {{user.uid}}</p>
   <button (click)="logout()">Logout</button>
+  <app-add-record [uid]="user.uid"></app-add-record>
   <app-records [uid]="user.uid"></app-records>
 </div>
 <ng-template #showLogin>
