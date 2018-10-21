@@ -12,6 +12,7 @@ export interface Record {
   category: string;
   date: Date;
   uid: String;
+  id: String;
 }
 export interface Doc { records: Record[]; }
 
@@ -19,18 +20,18 @@ export interface Doc { records: Record[]; }
   providedIn: 'root'
 })
 export class RecordsService {
-  private recordsCollection: AngularFirestoreCollection<Record[]>;
+  private recordsCollection: AngularFirestoreCollection<Record>;
   private recordDoc: AngularFirestoreDocument<Record>;
   constructor(private afs: AngularFirestore
   ) { }
 
   getRecords(uid: String) {
-    this.recordsCollection = this.afs.collection<Record[]>('records', ref => ref
+    this.recordsCollection = this.afs.collection<Record>('records', ref => ref
       .where('uid', '==', uid)
       .orderBy('amount', 'asc'));
     return this.recordsCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as Record[];
+        const data = a.payload.doc.data();
         const id = a.payload.doc.id;
         return { id, ...data };
       }))

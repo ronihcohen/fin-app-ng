@@ -1,17 +1,9 @@
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort } from '@angular/material';
 import { Observable } from 'rxjs';
-import { RecordsService } from '../records.service';
+import { RecordsService, Record } from '../records.service';
 
-
-export interface RecordsItem {
-  title: string;
-  amount: number;
-  category: string;
-  date: Date;
-}
-
-export class RecordsDataSource extends DataSource<RecordsItem> {
+export class RecordsDataSource extends DataSource<Record> {
 
 
   constructor(private paginator: MatPaginator, private sort: MatSort, private records: RecordsService,
@@ -24,7 +16,7 @@ export class RecordsDataSource extends DataSource<RecordsItem> {
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<RecordsItem[]> {
+  connect(): Observable<Record[]> {
 
     return this.records.getRecords(this.uid);
     // Combine everything that affects the rendered data into one update
@@ -53,7 +45,7 @@ export class RecordsDataSource extends DataSource<RecordsItem> {
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  // private getPagedData(data: RecordsItem[]) {
+  // private getPagedData(data: Record[]) {
   //   const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
   //   return data.splice(startIndex, this.paginator.pageSize);
   // }
@@ -62,7 +54,7 @@ export class RecordsDataSource extends DataSource<RecordsItem> {
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  //   private getSortedData(data: RecordsItem[]) {
+  //   private getSortedData(data: Record[]) {
   //     if (!this.sort.active || this.sort.direction === '') {
   //       return data;
   //     }
