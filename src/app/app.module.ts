@@ -12,20 +12,19 @@ import { environment } from '../environments/environment';
 import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
-  MatGridListModule,
-  MatCardModule,
-  MatMenuModule,
   MatIconModule,
   MatButtonModule,
   MatTableModule,
   MatPaginatorModule,
-  MatSortModule, MatInputModule, MatSelectModule, MatRadioModule
+  MatSortModule,
+  MatInputModule,
+  MatCardModule
 } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { RecordsComponent } from './records/records.component';
 import { RecordsService } from './records.service';
 import { AddRecordComponent } from './add-record/add-record.component';
-import { ReactiveFormsModule } from '@angular/forms'
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -39,9 +38,6 @@ import { ReactiveFormsModule } from '@angular/forms'
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     BrowserAnimationsModule,
-    MatGridListModule,
-    MatCardModule,
-    MatMenuModule,
     MatIconModule,
     MatButtonModule,
     LayoutModule,
@@ -49,9 +45,8 @@ import { ReactiveFormsModule } from '@angular/forms'
     MatPaginatorModule,
     MatSortModule,
     MatInputModule,
-    MatSelectModule,
-    MatRadioModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatCardModule
   ],
   bootstrap: [AppComponent],
   providers: [AngularFirestore, AngularFireAuth, RecordsService]
