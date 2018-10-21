@@ -19,9 +19,13 @@ export class RecordsComponent implements OnInit {
   }
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['title', 'amount', 'date'];
+  displayedColumns = ['title', 'amount', 'date', 'delete'];
 
   ngOnInit() {
     this.dataSource = new RecordsDataSource(this.paginator, this.sort, this.records, this.uid);
+  }
+
+  handleDeleteClick(row) {
+    this.records.deleteRecord(row.id);
   }
 }
