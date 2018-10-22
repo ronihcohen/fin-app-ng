@@ -17,6 +17,7 @@ import {
   MatTableModule,
   MatPaginatorModule,
   MatSortModule,
+  MatToolbarModule,
   MatInputModule,
   MatCardModule, MatSelectModule, MatRadioModule
 } from '@angular/material';
@@ -50,7 +51,8 @@ import { FamilyFormComponent } from './family-form/family-form.component';
     ReactiveFormsModule,
     MatCardModule,
     MatSelectModule,
-    MatRadioModule
+    MatRadioModule,
+    MatToolbarModule
   ],
   bootstrap: [AppComponent],
   providers: [AngularFirestore, AngularFireAuth, RecordsService]

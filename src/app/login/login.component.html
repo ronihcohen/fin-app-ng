@@ -1,13 +1,28 @@
 <div *ngIf="familyID && afAuth.user | async as user; else showLogin">
-  <p>Hello {{ user.displayName }} ({{ user.email }})</p>
-  <button (click)="logout()">Logout</button>
-  <app-add-record [familyID]="familyID"></app-add-record>
+
+  <mat-toolbar>
+    <p>Hello {{ user.displayName }} ({{ user.email }})</p>
+    <span style="flex: 1 1 auto;"></span>
+    <button mat-raised-button
+            color="accent"
+            (click)="logout()">Logout</button>
+  </mat-toolbar>
+
   <app-records [familyID]="familyID"></app-records>
+
+  <app-add-record [familyID]="familyID"></app-add-record>
+
+
   <app-family-form [uid]="user.uid"
                    [familyID]="familyID"></app-family-form>
 
 </div>
+
 <ng-template #showLogin>
-  <p>Please login.</p>
-  <button (click)="login()">Login with Google</button>
+  <mat-toolbar>
+    <span style="flex: 1 1 auto;"></span>
+    <button mat-raised-button
+            color="primary"
+            (click)="login()">Login with Google</button>
+  </mat-toolbar>
 </ng-template>
