@@ -15,8 +15,9 @@ export class AddRecordComponent {
     ],
   });
 
-  constructor(private fb: FormBuilder, private records: RecordsService) {}
+  constructor(private fb: FormBuilder, private records: RecordsService) { }
   @Input() uid: String;
+  @Input() familyID: String;
 
   onSubmit() {
     if (this.recordForm.valid) {

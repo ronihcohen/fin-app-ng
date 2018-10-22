@@ -18,20 +18,22 @@ import {
   MatPaginatorModule,
   MatSortModule,
   MatInputModule,
-  MatCardModule
+  MatCardModule, MatSelectModule, MatRadioModule
 } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { RecordsComponent } from './records/records.component';
 import { RecordsService } from './records.service';
 import { AddRecordComponent } from './add-record/add-record.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FamilyFormComponent } from './family-form/family-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RecordsComponent,
-    AddRecordComponent
+    AddRecordComponent,
+    FamilyFormComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +48,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatSortModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatCardModule
+    MatCardModule,
+    MatSelectModule,
+    MatRadioModule
   ],
   bootstrap: [AppComponent],
   providers: [AngularFirestore, AngularFireAuth, RecordsService]

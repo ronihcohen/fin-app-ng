@@ -1,8 +1,15 @@
-<div *ngIf="afAuth.user | async as user; else showLogin">
+<div *ngIf="familyID && afAuth.user | async as user; else showLogin">
   <p>Hello {{ user.displayName }} = {{user.uid}}</p>
+  <p>Family ID: {{familyID }}</p>
   <button (click)="logout()">Logout</button>
-  <app-add-record [uid]="user.uid"></app-add-record>
-  <app-records [uid]="user.uid"></app-records>
+  <app-add-record [uid]="user.uid"
+                  [familyID]="familyID"></app-add-record>
+  <app-records [uid]="user.uid"
+               [familyID]="familyID"></app-records>
+  <app-family-form [uid]="user.uid"
+                   [familyID]="familyID"></app-family-form>
+
+  <pre>{{user | json}}</pre>
 </div>
 <ng-template #showLogin>
   <p>Please login.</p>

@@ -11,7 +11,10 @@ import { RecordsService } from '../records.service';
 export class RecordsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+
   @Input() uid: String;
+  @Input() familyID: String;
+
   dataSource: RecordsDataSource;
 
   constructor(private records: RecordsService) {
