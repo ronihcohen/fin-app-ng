@@ -11,7 +11,7 @@ export interface Record {
   amount: number;
   category: string;
   date: Date;
-  uid: String;
+  familyID: String;
   id: String;
 }
 export interface Doc { records: Record[]; }
@@ -25,9 +25,9 @@ export class RecordsService {
   constructor(private afs: AngularFirestore
   ) { }
 
-  getRecords(uid: String) {
+  getRecords(familyID: String) {
     this.recordsCollection = this.afs.collection<Record>('records', ref => ref
-      .where('uid', '==', uid)
+      .where('familyID', '==', familyID)
       .orderBy('amount', 'asc'));
     return this.recordsCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
@@ -38,8 +38,8 @@ export class RecordsService {
     );
   }
 
-  addRecord(record: Record, uid: String) {
-    const newRecord = { ...record, uid: uid, date: new Date() };
+  addRecord(record: Record, familyID: String) {
+    const newRecord = { ...record, familyID: familyID, date: new Date() };
     this.afs.collection<Record>('records').add(newRecord);
   }
 

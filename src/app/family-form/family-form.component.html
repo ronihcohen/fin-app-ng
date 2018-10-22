@@ -4,7 +4,7 @@
   <mat-card class="shipping-card">
 
     <mat-card-header>
-      <mat-card-title>Set your family ID</mat-card-title>
+      <mat-card-title>Set your family secret</mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
@@ -12,9 +12,16 @@
         <div class="col">
           <mat-form-field class="full-width">
             <input matInput
-                   placeholder="ID"
-                   formControlName="id">
+                   type="password"
+                   placeholder="Family Secret"
+                   formControlName="secret">
           </mat-form-field>
+          <mat-error *ngIf="familyForm.controls['secret'].hasError('required')">
+            Family secret is required.
+          </mat-error>
+          <mat-error *ngIf="familyForm.controls['secret'].hasError('minlength')">
+            Family secret must be 16 characters long.
+          </mat-error>
         </div>
       </div>
 

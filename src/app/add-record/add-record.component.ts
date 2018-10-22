@@ -16,12 +16,11 @@ export class AddRecordComponent {
   });
 
   constructor(private fb: FormBuilder, private records: RecordsService) { }
-  @Input() uid: String;
   @Input() familyID: String;
 
   onSubmit() {
     if (this.recordForm.valid) {
-      this.records.addRecord(this.recordForm.value, this.uid);
+      this.records.addRecord(this.recordForm.value, this.familyID);
     }
   }
 }

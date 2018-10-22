@@ -9,8 +9,12 @@ import { FamilyService } from '../family.service';
 })
 export class FamilyFormComponent implements OnInit {
   familyForm = this.fb.group({
-    id: [null, Validators.required],
+    secret: [null, Validators.compose([
+      Validators.required, Validators.minLength(16)])
+    ],
   });
+
+
 
   @Input() uid: String;
   @Input() familyID: String;
@@ -20,12 +24,12 @@ export class FamilyFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.familyForm.setValue({ 'id': this.familyID || this.uid });
+    this.familyForm.setValue({ 'secret': this.familyID });
   }
 
   onSubmit() {
     if (this.familyForm.valid) {
-      this.familyService.updateFamilyID(this.familyForm.value.id, this.uid);
+      this.familyService.updateFamilyID(this.familyForm.value.secret, this.uid);
     }
   }
 }

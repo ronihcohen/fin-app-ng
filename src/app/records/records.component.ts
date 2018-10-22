@@ -1,4 +1,6 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import {
+  Component, ViewChild, Input, OnChanges
+} from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 import { RecordsDataSource } from './records-datasource';
 import { RecordsService } from '../records.service';
@@ -8,24 +10,21 @@ import { RecordsService } from '../records.service';
   templateUrl: './records.component.html',
   styleUrls: ['./records.component.scss'],
 })
-export class RecordsComponent implements OnInit {
+export class RecordsComponent implements OnChanges {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  @Input() uid: String;
   @Input() familyID: String;
 
   dataSource: RecordsDataSource;
 
-  constructor(private records: RecordsService) {
-
-  }
+  constructor(private records: RecordsService) { }
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['title', 'amount', 'date', 'delete'];
 
-  ngOnInit() {
-    this.dataSource = new RecordsDataSource(this.paginator, this.sort, this.records, this.uid);
+  ngOnChanges() {
+    this.dataSource = new RecordsDataSource(this.paginator, this.sort, this.records, this.familyID);
   }
 
   handleDeleteClick(row) {
