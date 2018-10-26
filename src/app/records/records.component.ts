@@ -19,18 +19,22 @@ export class RecordsComponent implements OnChanges {
   @ViewChild(MatSort) sort: MatSort;
 
   @Input() familyID: String;
+  @Input() isHandset: Boolean;
 
   dataSource: RecordsDataSource;
   currentDate: Date;
+  displayedColumns: Array<string>;
 
   constructor(private records: RecordsService, public dialog: MatDialog) { }
-
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['title', 'amount', 'date', 'delete'];
 
   ngOnChanges() {
     this.currentDate = _moment().toDate();
     this.dataSource = new RecordsDataSource(_moment(), this.records, this.familyID);
+
+    this.displayedColumns = ['title', 'amount', 'date', 'delete'];
+    if (this.isHandset) {
+      this.displayedColumns = ['title', 'amount', 'delete'];
+    }
   }
 
   handleDeleteClick(row) {
