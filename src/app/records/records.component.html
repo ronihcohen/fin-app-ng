@@ -3,7 +3,7 @@
         <mat-card-title>Current balance for
             <app-month-picker (handleDateChange)="handleDateChange($event)"></app-month-picker>
         </mat-card-title>
-        <mat-card-subtitle *ngIf="dataSource.dataLength > 0">Total amount: {{dataSource.totalAmount || 0}} NIS
+        <mat-card-subtitle *ngIf="dataSource.dataLength > 0">Total amount: {{dataSource.totalAmount | currency:'ILS'}}
         </mat-card-subtitle>
         <mat-card-subtitle *ngIf="dataSource.dataLength === 0">No records found.</mat-card-subtitle>
     </mat-card-header>
@@ -25,7 +25,7 @@
                 <th mat-header-cell
                     *matHeaderCellDef>Amount</th>
                 <td mat-cell
-                    *matCellDef="let row">{{row.amount}}</td>
+                    *matCellDef="let row">{{row.amount | currency:'ILS'}}</td>
             </ng-container>
 
             <ng-container matColumnDef="date">

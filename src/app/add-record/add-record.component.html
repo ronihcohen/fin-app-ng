@@ -1,6 +1,7 @@
 <form [formGroup]="recordForm"
       novalidate
-      (ngSubmit)="onSubmit()">
+      #formDirective="ngForm"
+      (ngSubmit)="onSubmit(myForm, formDirective)">
   <mat-card class="general-card">
     <mat-card-header>
       <mat-card-title>Add new record</mat-card-title>

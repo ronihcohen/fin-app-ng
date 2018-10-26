@@ -8,14 +8,10 @@
             (click)="logout()">Logout</button>
   </mat-toolbar>
 
-  <app-records [familyID]="familyID"></app-records>
-
   <app-add-record [familyID]="familyID"></app-add-record>
-
-
+  <app-records [familyID]="familyID"></app-records>
   <app-family-form [uid]="user.uid"
                    [familyID]="familyID"></app-family-form>
-
 </div>
 
 <ng-template #showLogin>

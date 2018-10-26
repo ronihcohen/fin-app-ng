@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroupDirective } from '@angular/forms';
 import { RecordsService } from '../records.service';
 
 @Component({
@@ -18,9 +18,11 @@ export class AddRecordComponent {
   constructor(private fb: FormBuilder, private records: RecordsService) { }
   @Input() familyID: String;
 
-  onSubmit() {
+  onSubmit(formData: any, formDirective: FormGroupDirective): void {
     if (this.recordForm.valid) {
       this.records.addRecord(this.recordForm.value, this.familyID);
+      this.recordForm.reset();
+      formDirective.resetForm();
     }
   }
 }
