@@ -1,5 +1,5 @@
 
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
@@ -45,6 +45,7 @@ export const MY_FORMATS = {
 })
 export class MonthPickerComponent {
   date = new FormControl(moment());
+  @Output() handleDateChange = new EventEmitter<Moment>();
 
   chosenYearHandler(normalizedYear: Moment) {
     const ctrlValue = this.date.value;
@@ -56,6 +57,7 @@ export class MonthPickerComponent {
     const ctrlValue = this.date.value;
     ctrlValue.month(normlizedMonth.month());
     this.date.setValue(ctrlValue);
+    this.handleDateChange.emit(ctrlValue);
     datepicker.close();
   }
 }

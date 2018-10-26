@@ -5,7 +5,7 @@
 
 
     <mat-card-content>
-        <app-month-picker></app-month-picker>
+        <app-month-picker (handleDateChange)="handleDateChange($event)"></app-month-picker>
         <table mat-table
                class="full-width-table"
                [dataSource]="dataSource"

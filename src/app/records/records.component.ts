@@ -4,6 +4,9 @@ import {
 import { MatPaginator, MatSort } from '@angular/material';
 import { RecordsDataSource } from './records-datasource';
 import { RecordsService } from '../records.service';
+import * as _moment from 'moment';
+// tslint:disable-next-line:no-duplicate-imports
+import { default as _rollupMoment, Moment } from 'moment';
 
 @Component({
   selector: 'app-records',
@@ -29,5 +32,9 @@ export class RecordsComponent implements OnChanges {
 
   handleDeleteClick(row) {
     this.records.deleteRecord(row.id);
+  }
+
+  handleDateChange(date: Moment) {
+    console.log(date);
   }
 }
