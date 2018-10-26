@@ -27,7 +27,7 @@ export class RecordsComponent implements OnChanges {
   displayedColumns = ['title', 'amount', 'date', 'delete'];
 
   ngOnChanges() {
-    this.dataSource = new RecordsDataSource(this.paginator, this.sort, this.records, this.familyID);
+    this.dataSource = new RecordsDataSource(_moment(), this.records, this.familyID);
   }
 
   handleDeleteClick(row) {
@@ -35,6 +35,6 @@ export class RecordsComponent implements OnChanges {
   }
 
   handleDateChange(date: Moment) {
-    console.log(date);
+    this.dataSource = new RecordsDataSource(date, this.records, this.familyID);
   }
 }

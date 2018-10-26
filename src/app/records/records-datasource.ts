@@ -2,11 +2,14 @@ import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort } from '@angular/material';
 import { Observable } from 'rxjs';
 import { RecordsService, Record } from '../records.service';
+import * as _moment from 'moment';
+// tslint:disable-next-line:no-duplicate-imports
+import { default as _rollupMoment, Moment } from 'moment';
 
 export class RecordsDataSource extends DataSource<Record> {
 
 
-  constructor(private paginator: MatPaginator, private sort: MatSort, private records: RecordsService,
+  constructor(private date: Moment, private records: RecordsService,
     private uid: String) {
     super();
   }
@@ -17,60 +20,7 @@ export class RecordsDataSource extends DataSource<Record> {
    * @returns A stream of the items to be rendered.
    */
   connect(): Observable<Record[]> {
-
-    return this.records.getRecords(this.uid);
-    // Combine everything that affects the rendered data into one update
-    // stream for the data-table to consume.
-    // const dataMutations = [
-    //   observableOf(this.data),
-    //   this.paginator.page,
-    //   this.sort.sortChange
-    // ];
-
-    // // Set the paginator's length
-    // this.paginator.length = this.data.length;
-
-    // return merge(...dataMutations).pipe(map(() => {
-    //   return this.getPagedData(this.getSortedData([...this.data]));
-    // }));
+    return this.records.getRecords(this.uid, this.date);
   }
-
-  /**
-   *  Called when the table is being destroyed. Use this function, to clean up
-   * any open connections or free any held resources that were set up during connect.
-   */
   disconnect() { }
-
-  /**
-   * Paginate the data (client-side). If you're using server-side pagination,
-   * this would be replaced by requesting the appropriate data from the server.
-   */
-  // private getPagedData(data: Record[]) {
-  //   const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-  //   return data.splice(startIndex, this.paginator.pageSize);
-  // }
-
-  /**
-   * Sort the data (client-side). If you're using server-side sorting,
-   * this would be replaced by requesting the appropriate data from the server.
-   */
-  //   private getSortedData(data: Record[]) {
-  //     if (!this.sort.active || this.sort.direction === '') {
-  //       return data;
-  //     }
-
-  //     return data.sort((a, b) => {
-  //       const isAsc = this.sort.direction === 'asc';
-  //       switch (this.sort.active) {
-  //         case 'name': return compare(a.name, b.name, isAsc);
-  //         case 'id': return compare(+a.id, +b.id, isAsc);
-  //         default: return 0;
-  //       }
-  //     });
-  //   }
-  // }
-
-  /** Simple sort comparator for example ID/Name columns (for client-side sorting). */
-  // function compare(a, b, isAsc) {
-  //   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }

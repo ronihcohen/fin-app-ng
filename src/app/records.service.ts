@@ -6,6 +6,10 @@ import {
 } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 
+import * as _moment from 'moment';
+// tslint:disable-next-line:no-duplicate-imports
+import { default as _rollupMoment, Moment } from 'moment';
+
 export interface Record {
   title: string;
   amount: number;
@@ -25,15 +29,11 @@ export class RecordsService {
   constructor(private afs: AngularFirestore
   ) { }
 
-  getRecords(familyID: String) {
-    const date = new Date(), y = date.getFullYear(), m = date.getMonth();
-    const firstDay = new Date(y, m, 1);
-    const lastDay = new Date(y, m + 1, 0);
-
+  getRecords(familyID: String, date: Moment) {
     this.recordsCollection = this.afs.collection<Record>('records', ref => ref
       .orderBy('date', 'desc')
-      .where('date', '>', firstDay)
-      .where('date', '<', lastDay)
+      .where('date', '>=', date.startOf('month').toDate())
+      .where('date', '<=', date.endOf('month').toDate())
       .where('familyID', '==', familyID));
     return this.recordsCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
