@@ -21,6 +21,7 @@ import {
   MatInputModule,
   MatDatepickerModule,
   MatSnackBarModule,
+  MatDialogModule,
   MatCardModule, MatSelectModule, MatRadioModule
 } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -30,6 +31,7 @@ import { AddRecordComponent } from './add-record/add-record.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FamilyFormComponent } from './family-form/family-form.component';
 import { MonthPickerComponent } from './month-picker/month-picker.component';
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,7 @@ import { MonthPickerComponent } from './month-picker/month-picker.component';
     AddRecordComponent,
     FamilyFormComponent,
     MonthPickerComponent,
+    DeleteDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,9 +61,11 @@ import { MonthPickerComponent } from './month-picker/month-picker.component';
     MatRadioModule,
     MatToolbarModule,
     MatDatepickerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule
   ],
   bootstrap: [AppComponent],
-  providers: [AngularFirestore, AngularFireAuth, RecordsService]
+  providers: [AngularFirestore, AngularFireAuth, RecordsService],
+  entryComponents: [DeleteDialogComponent]
 })
 export class AppModule { }

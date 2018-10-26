@@ -1,12 +1,13 @@
 import {
   Component, ViewChild, Input, OnChanges
 } from '@angular/core';
-import { MatPaginator, MatSort } from '@angular/material';
+import { MatPaginator, MatSort, MatDialog } from '@angular/material';
 import { RecordsDataSource } from './records-datasource';
 import { RecordsService } from '../records.service';
 import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import { default as _rollupMoment, Moment } from 'moment';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-records',
@@ -22,7 +23,7 @@ export class RecordsComponent implements OnChanges {
   dataSource: RecordsDataSource;
   currentDate: Date;
 
-  constructor(private records: RecordsService) { }
+  constructor(private records: RecordsService, public dialog: MatDialog) { }
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['title', 'amount', 'date', 'delete'];
@@ -33,7 +34,13 @@ export class RecordsComponent implements OnChanges {
   }
 
   handleDeleteClick(row) {
-    this.records.deleteRecord(row.id);
+    const dialogRef = this.dialog.open(DeleteDialogComponent);
+
+    dialogRef.afterClosed().subscribe(approved => {
+      if (approved) {
+        this.records.deleteRecord(row.id);
+      }
+    });
   }
 
   handleDateChange(date: Moment) {
