@@ -20,6 +20,7 @@ export class RecordsComponent implements OnChanges {
   @Input() familyID: String;
 
   dataSource: RecordsDataSource;
+  currentDate: Date;
 
   constructor(private records: RecordsService) { }
 
@@ -27,6 +28,7 @@ export class RecordsComponent implements OnChanges {
   displayedColumns = ['title', 'amount', 'date', 'delete'];
 
   ngOnChanges() {
+    this.currentDate = _moment().toDate();
     this.dataSource = new RecordsDataSource(_moment(), this.records, this.familyID);
   }
 
@@ -35,6 +37,7 @@ export class RecordsComponent implements OnChanges {
   }
 
   handleDateChange(date: Moment) {
+    this.currentDate = date.toDate();
     this.dataSource = new RecordsDataSource(date, this.records, this.familyID);
   }
 }
