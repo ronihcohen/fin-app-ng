@@ -19,6 +19,7 @@ import {
   MatSortModule,
   MatToolbarModule,
   MatInputModule,
+  MatDatepickerModule,
   MatCardModule, MatSelectModule, MatRadioModule
 } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -27,6 +28,7 @@ import { RecordsService } from './records.service';
 import { AddRecordComponent } from './add-record/add-record.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FamilyFormComponent } from './family-form/family-form.component';
+import { MonthPickerComponent } from './month-picker/month-picker.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { FamilyFormComponent } from './family-form/family-form.component';
     LoginComponent,
     RecordsComponent,
     AddRecordComponent,
-    FamilyFormComponent
+    FamilyFormComponent,
+    MonthPickerComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,8 @@ import { FamilyFormComponent } from './family-form/family-form.component';
     MatCardModule,
     MatSelectModule,
     MatRadioModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatDatepickerModule
   ],
   bootstrap: [AppComponent],
   providers: [AngularFirestore, AngularFireAuth, RecordsService]

@@ -195,6 +195,13 @@
   resolved "https://registry.yarnpkg.com/@angular/language-service/-/language-service-7.0.0.tgz#1e99a1fcd34a2f7b1b3c26cddac516c59d978a4f"
   integrity sha512-JlBAXvKrXCCdFc9AnQRaMDl9c0qmASagmmbEX+fuxJbcyqtsUF2y/15Hy5UUmmA+ldZ+mwAoX/naPZZrFSP2rw==
 
+"@angular/material-moment-adapter@^7.0.1":
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/@angular/material-moment-adapter/-/material-moment-adapter-7.0.1.tgz#0e4704a4bd699b9fa4c161c54040741a4f1fbe51"
+  integrity sha512-dPsws6t04LBqxufSbkk9MuAJuXFZ/K5dnbkZU7nerZrk7ZcLMzgg/OLGlE8sVJkEV/gVqWB2rLgwOS0+kniMMg==
+  dependencies:
+    tslib "^1.7.1"
+
 "@angular/material@^7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@angular/material/-/material-7.0.0.tgz#00cacc2f210c5d7e822e34b09078f41df52d8f58"
@@ -4706,6 +4713,11 @@ mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0:
   integrity sha1-MAV0OOrGz3+MR2fzhkjWaX11yQM=
   dependencies:
     minimist "0.0.8"
+
+moment@^2.22.2:
+  version "2.22.2"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.2.tgz#3c257f9839fc0e93ff53149632239eb90783ff66"
+  integrity sha1-PCV/mDn8DpP/UxSWMiOeuQeD/2Y=
 
 move-concurrently@^1.0.1:
   version "1.0.1"
