@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
 import { FamilyService } from '../family.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,17 @@ import { FamilyService } from '../family.service';
 })
 export class LoginComponent implements OnInit {
   familyID: String;
-  constructor(public afAuth: AngularFireAuth, public familyService: FamilyService) {
+  isHandset = false;
+  constructor(public afAuth: AngularFireAuth, public familyService: FamilyService, breakpointObserver: BreakpointObserver) {
+    breakpointObserver.observe([
+      Breakpoints.HandsetLandscape,
+      Breakpoints.HandsetPortrait
+    ]).subscribe(result => {
+      this.isHandset = false;
+      if (result.matches) {
+        this.isHandset = true;
+      }
+    });
   }
 
   ngOnInit() {
