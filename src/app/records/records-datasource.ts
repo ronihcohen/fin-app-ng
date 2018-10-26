@@ -8,7 +8,7 @@ import { default as _rollupMoment, Moment } from 'moment';
 
 export class RecordsDataSource extends DataSource<Record> {
 
-
+  dataLength: Number;
   constructor(private date: Moment, private records: RecordsService,
     private uid: String) {
     super();
@@ -20,7 +20,11 @@ export class RecordsDataSource extends DataSource<Record> {
    * @returns A stream of the items to be rendered.
    */
   connect(): Observable<Record[]> {
-    return this.records.getRecords(this.uid, this.date);
+    const recordsObserver = this.records.getRecords(this.uid, this.date);
+    recordsObserver.subscribe(data => {
+      this.dataLength = data.length;
+    });
+    return recordsObserver;
   }
   disconnect() { }
 }
