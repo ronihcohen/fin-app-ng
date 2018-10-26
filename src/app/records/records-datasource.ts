@@ -9,6 +9,7 @@ import { default as _rollupMoment, Moment } from 'moment';
 export class RecordsDataSource extends DataSource<Record> {
 
   dataLength: Number;
+  totalAmount: Number;
   constructor(private date: Moment, private records: RecordsService,
     private uid: String) {
     super();
@@ -23,6 +24,7 @@ export class RecordsDataSource extends DataSource<Record> {
     const recordsObserver = this.records.getRecords(this.uid, this.date);
     recordsObserver.subscribe(data => {
       this.dataLength = data.length;
+      this.totalAmount = data.reduce((acc, cur) => acc + cur.amount, 0);
     });
     return recordsObserver;
   }

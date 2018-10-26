@@ -1,8 +1,11 @@
 <mat-card class="general-card">
     <mat-card-header>
-        <mat-card-title>Current balance for {{currentDate | date:'MMMM yyyy'}}</mat-card-title>
-        <span style="flex: 1 1 auto;"></span>
-        <app-month-picker (handleDateChange)="handleDateChange($event)"></app-month-picker>
+        <mat-card-title>Current balance for
+            <app-month-picker (handleDateChange)="handleDateChange($event)"></app-month-picker>
+        </mat-card-title>
+        <mat-card-subtitle *ngIf="dataSource.dataLength > 0">Total amount: {{dataSource.totalAmount || 0}} NIS
+        </mat-card-subtitle>
+        <mat-card-subtitle *ngIf="dataSource.dataLength === 0">No records found.</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
@@ -29,7 +32,7 @@
                 <th mat-header-cell
                     *matHeaderCellDef>Date</th>
                 <td mat-cell
-                    *matCellDef="let row">{{row.date?.toDate() | date:"short" }}</td>
+                    *matCellDef="let row">{{row.date?.toDate() | date:"dd/MM/yyyy" }}</td>
             </ng-container>
 
             <ng-container matColumnDef="delete">
@@ -51,7 +54,6 @@
                 *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
 
-        <h3 *ngIf="dataSource.dataLength === 0">No records found.</h3>
     </mat-card-content>
 
 
