@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, Validators, FormGroupDirective } from '@angular/forms';
 import { RecordsService } from '../records.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-add-record',
@@ -15,7 +16,7 @@ export class AddRecordComponent {
     ],
   });
 
-  constructor(private fb: FormBuilder, private records: RecordsService) { }
+  constructor(private fb: FormBuilder, private records: RecordsService, public snackBar: MatSnackBar) { }
   @Input() familyID: String;
 
   onSubmit(formData: any, formDirective: FormGroupDirective): void {
@@ -23,6 +24,9 @@ export class AddRecordComponent {
       this.records.addRecord(this.recordForm.value, this.familyID);
       this.recordForm.reset();
       formDirective.resetForm();
+      this.snackBar.open('Your record was added successfully, Thank you!', null, {
+        duration: 1500
+      });
     }
   }
 }

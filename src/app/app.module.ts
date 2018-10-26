@@ -20,6 +20,7 @@ import {
   MatToolbarModule,
   MatInputModule,
   MatDatepickerModule,
+  MatSnackBarModule,
   MatCardModule, MatSelectModule, MatRadioModule
 } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -37,7 +38,7 @@ import { MonthPickerComponent } from './month-picker/month-picker.component';
     RecordsComponent,
     AddRecordComponent,
     FamilyFormComponent,
-    MonthPickerComponent
+    MonthPickerComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,7 +57,8 @@ import { MonthPickerComponent } from './month-picker/month-picker.component';
     MatSelectModule,
     MatRadioModule,
     MatToolbarModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatSnackBarModule
   ],
   bootstrap: [AppComponent],
   providers: [AngularFirestore, AngularFireAuth, RecordsService]
