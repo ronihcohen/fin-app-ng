@@ -5,10 +5,7 @@ import {
   AngularFirestoreDocument
 } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
-
-import * as _moment from 'moment';
-// tslint:disable-next-line:no-duplicate-imports
-import { default as _rollupMoment, Moment } from 'moment';
+import { Moment } from 'moment';
 
 export interface Record {
   title: string;

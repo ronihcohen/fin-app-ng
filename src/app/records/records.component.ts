@@ -6,7 +6,7 @@ import { RecordsDataSource } from './records-datasource';
 import { RecordsService } from '../records.service';
 import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
-import { default as _rollupMoment, Moment } from 'moment';
+import { Moment } from 'moment';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 @Component({
