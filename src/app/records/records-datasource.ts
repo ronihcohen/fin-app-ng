@@ -8,7 +8,7 @@ export class RecordsDataSource extends DataSource<Record> {
   dataLength: Number;
   totalAmount: Number;
   constructor(private date: Moment, private records: RecordsService,
-    private uid: String) {
+    private familyID: String) {
     super();
   }
 
@@ -18,7 +18,7 @@ export class RecordsDataSource extends DataSource<Record> {
    * @returns A stream of the items to be rendered.
    */
   connect(): Observable<Record[]> {
-    const recordsObserver = this.records.getRecords(this.uid, this.date);
+    const recordsObserver = this.records.getRecords(this.familyID, this.date);
     recordsObserver.subscribe(data => {
       this.dataLength = data.length;
       this.totalAmount = data.reduce((acc, cur) => acc + cur.amount, 0);
