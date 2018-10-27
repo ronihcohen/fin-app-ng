@@ -18,13 +18,14 @@ export class AddRecordComponent {
 
   constructor(private fb: FormBuilder, private records: RecordsService, public snackBar: MatSnackBar) { }
   @Input() familyID: String;
+  @Input() uid: String;
 
   onSubmit(formData: any, formDirective: FormGroupDirective): void {
     if (this.recordForm.valid) {
-      this.records.addRecord(this.recordForm.value, this.familyID);
+      this.records.addRecord(this.recordForm.value, this.familyID, this.uid);
       this.recordForm.reset();
       formDirective.resetForm();
-      this.snackBar.open('Your record was added successfully, Thank you!', null, {
+      this.snackBar.open('Your record was added successfully.', null, {
         duration: 1500
       });
     }

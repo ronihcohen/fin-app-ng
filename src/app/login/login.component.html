@@ -8,7 +8,8 @@
             (click)="logout()">Logout</button>
   </mat-toolbar>
 
-  <app-add-record [familyID]="familyID"></app-add-record>
+  <app-add-record [familyID]="familyID"
+                  [uid]="user.uid"></app-add-record>
   <app-records [familyID]="familyID"
                [isHandset]="isHandset"></app-records>
   <app-family-form [uid]="user.uid"

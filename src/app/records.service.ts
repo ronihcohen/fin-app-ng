@@ -41,8 +41,8 @@ export class RecordsService {
     );
   }
 
-  addRecord(record: Record, familyID: String) {
-    const newRecord = { ...record, familyID: familyID, date: new Date() };
+  addRecord(record: Record, familyID: String, uid: String) {
+    const newRecord = { ...record, familyID: familyID, uid: uid, date: new Date() };
     this.afs.collection<Record>('records').add(newRecord);
   }
 
