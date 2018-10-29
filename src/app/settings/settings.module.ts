@@ -1,14 +1,29 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import {
+  MatInputModule,
+  MatCardModule,
+  MatButtonModule,
+} from '@angular/material';
 
 import { SettingsRoutingModule } from './settings-routing.module';
-import { UserSettingsComponent } from '../user-settings/user-settings.component';
+import { FamilyFormComponent } from '../family-form/family-form.component';
+
+
 
 @NgModule({
+  declarations: [
+    FamilyFormComponent,
+  ],
   imports: [
     CommonModule,
-    SettingsRoutingModule
+    SettingsRoutingModule,
+    ReactiveFormsModule,
+    MatCardModule,
+    MatInputModule,
+    MatButtonModule
   ],
-  declarations: [UserSettingsComponent]
 })
 export class SettingsModule { }

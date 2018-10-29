@@ -29,7 +29,6 @@ import { RecordsComponent } from './records/records.component';
 import { RecordsService } from './records.service';
 import { AddRecordComponent } from './add-record/add-record.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FamilyFormComponent } from './family-form/family-form.component';
 import { MonthPickerComponent } from './month-picker/month-picker.component';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { SettingsModule } from './settings/settings.module';
@@ -41,7 +40,6 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     LoginComponent,
     RecordsComponent,
     AddRecordComponent,
-    FamilyFormComponent,
     MonthPickerComponent,
     DeleteDialogComponent,
     ToolbarComponent,
