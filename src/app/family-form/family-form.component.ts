@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FamilyService } from '../family.service';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-family-form',
@@ -16,8 +18,10 @@ export class FamilyFormComponent implements OnInit {
   });
 
   constructor(private fb: FormBuilder,
+    private router: Router,
     private familyService: FamilyService,
-    public afAuth: AngularFireAuth) { }
+    public afAuth: AngularFireAuth,
+    public snackBar: MatSnackBar) { }
   uid: String;
   ngOnInit() {
     this.afAuth.user.subscribe(user => {
@@ -29,7 +33,12 @@ export class FamilyFormComponent implements OnInit {
 
   onSubmit() {
     if (this.familyForm.valid) {
-      this.familyService.updateFamilyID(this.familyForm.value.secret, this.uid);
+      this.familyService.updateFamilyID(this.familyForm.value.secret, this.uid).then(res => {
+        this.snackBar.open('Your secret was changed successfully.', null, {
+          duration: 1500
+        });
+        this.router.navigate(['/']);
+      });
     }
   }
 }

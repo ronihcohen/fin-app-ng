@@ -21,7 +21,10 @@ import {
   MatDatepickerModule,
   MatSnackBarModule,
   MatDialogModule,
-  MatCardModule, MatSelectModule, MatRadioModule
+  MatCardModule,
+  MatSelectModule,
+  MatRadioModule,
+  MatMenuModule
 } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { RecordsComponent } from './records/records.component';
@@ -64,7 +67,8 @@ import { RecordsContainerComponent } from './records-container/records-container
     MatDatepickerModule,
     MatSnackBarModule,
     MatDialogModule,
-    SettingsModule
+    SettingsModule,
+    MatMenuModule
   ],
   bootstrap: [AppComponent],
   providers: [AngularFirestore, AngularFireAuth, RecordsService],

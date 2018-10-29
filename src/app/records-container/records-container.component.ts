@@ -1,14 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { FamilyService } from '../family.service';
+import { FamilyService, UserDetails } from '../family.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-records-container',
   templateUrl: './records-container.component.html',
   styleUrls: ['./records-container.component.scss']
 })
-export class RecordsContainerComponent implements OnInit {
+export class RecordsContainerComponent {
+  familyID: String;
+  isHandset: Boolean;
+  userDetailsSubscription: Subscription;
+
   constructor(public afAuth: AngularFireAuth, public familyService: FamilyService, breakpointObserver: BreakpointObserver) {
     breakpointObserver.observe([
       Breakpoints.HandsetLandscape,
@@ -19,21 +24,22 @@ export class RecordsContainerComponent implements OnInit {
         this.isHandset = true;
       }
     });
-  }
-  familyID: String;
-  isHandset: Boolean;
-  ngOnInit() {
+
     this.afAuth.user.subscribe(user => {
       if (!user) {
+        if (this.userDetailsSubscription) {
+          this.userDetailsSubscription.unsubscribe();
+        }
         return;
       }
-      this.familyService.getUserDetails(user.uid).subscribe(userDetails => {
+      this.familyID = null;
+      this.userDetailsSubscription = this.familyService.getUserDetails(user.uid).subscribe(userDetails => {
         if (!userDetails) {
           return this.familyID = user.uid;
         }
         this.familyID = userDetails.familyID;
       });
     });
-  }
 
+  }
 }

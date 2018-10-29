@@ -6,6 +6,7 @@ import {
   MatInputModule,
   MatCardModule,
   MatButtonModule,
+  MatSnackBarModule
 } from '@angular/material';
 
 import { SettingsRoutingModule } from './settings-routing.module';
@@ -23,7 +24,8 @@ import { FamilyFormComponent } from '../family-form/family-form.component';
     ReactiveFormsModule,
     MatCardModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSnackBarModule
   ],
 })
 export class SettingsModule { }
