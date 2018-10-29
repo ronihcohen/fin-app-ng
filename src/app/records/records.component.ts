@@ -1,7 +1,7 @@
 import {
-  Component, ViewChild, Input, OnChanges
+  Component, SimpleChanges, Input, OnChanges
 } from '@angular/core';
-import { MatPaginator, MatSort, MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { RecordsDataSource } from './records-datasource';
 import { RecordsService } from '../records.service';
 import * as _moment from 'moment';
@@ -15,8 +15,6 @@ import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component'
   styleUrls: ['./records.component.scss'],
 })
 export class RecordsComponent implements OnChanges {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
 
   @Input() familyID: String;
   @Input() isHandset: Boolean;
@@ -27,14 +25,32 @@ export class RecordsComponent implements OnChanges {
 
   constructor(private records: RecordsService, public dialog: MatDialog) { }
 
-  ngOnChanges() {
+  onFamilyIDChange(familyID: String) {
     this.currentDate = _moment().toDate();
-    this.dataSource = new RecordsDataSource(_moment(), this.records, this.familyID);
+    if (this.dataSource) {
+      this.dataSource.disconnect();
+    }
+    this.dataSource = new RecordsDataSource(_moment(), this.records, familyID);
+  }
 
+  onViewportChange() {
     this.displayedColumns = ['title', 'amount', 'date', 'delete'];
     if (this.isHandset) {
       this.displayedColumns = ['title', 'amount', 'delete'];
     }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    const familyIDChanges = changes['familyID'];
+    if (familyIDChanges && familyIDChanges.currentValue !== familyIDChanges.previousValue) {
+      this.onFamilyIDChange(familyIDChanges.currentValue);
+    }
+
+    const viewPortChanges = changes['isHandset'];
+    if (viewPortChanges && viewPortChanges.currentValue !== viewPortChanges.previousValue) {
+      this.onViewportChange();
+    }
+
   }
 
   handleDeleteClick(row) {

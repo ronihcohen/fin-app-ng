@@ -1,16 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { auth } from 'firebase/app';
-import { FamilyService } from '../family.service';
+import { FamilyService, UserDetails } from '../family.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: 'login.component.html'
+  selector: 'app-records-container',
+  templateUrl: './records-container.component.html',
+  styleUrls: ['./records-container.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class RecordsContainerComponent {
   familyID: String;
-  isHandset = false;
+  isHandset: Boolean;
+  userDetailsSubscription: Subscription;
+
   constructor(public afAuth: AngularFireAuth, public familyService: FamilyService, breakpointObserver: BreakpointObserver) {
     breakpointObserver.observe([
       Breakpoints.HandsetLandscape,
@@ -21,27 +24,22 @@ export class LoginComponent implements OnInit {
         this.isHandset = true;
       }
     });
-  }
 
-  ngOnInit() {
     this.afAuth.user.subscribe(user => {
       if (!user) {
+        if (this.userDetailsSubscription) {
+          this.userDetailsSubscription.unsubscribe();
+        }
         return;
       }
-      this.familyService.getUserDetails(user.uid).subscribe(userDetails => {
+      this.familyID = null;
+      this.userDetailsSubscription = this.familyService.getUserDetails(user.uid).subscribe(userDetails => {
         if (!userDetails) {
           return this.familyID = user.uid;
         }
         this.familyID = userDetails.familyID;
       });
     });
-  }
 
-  login() {
-    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
   }
-  logout() {
-    this.afAuth.auth.signOut();
-  }
-
 }

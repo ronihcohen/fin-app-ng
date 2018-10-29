@@ -16,12 +16,14 @@
                    placeholder="Family Secret"
                    formControlName="secret">
           </mat-form-field>
-          <mat-error *ngIf="familyForm.controls['secret'].hasError('required')">
-            Family secret is required.
-          </mat-error>
-          <mat-error *ngIf="familyForm.controls['secret'].hasError('minlength')">
-            Family secret must be 16 characters long.
-          </mat-error>
+          <div *ngIf="familyForm.dirty">
+            <mat-error *ngIf="familyForm.controls['secret'].hasError('required')">
+              Family secret is required.
+            </mat-error>
+            <mat-error *ngIf="familyForm.controls['secret'].hasError('minlength')">
+              Family secret must be 16 characters long.
+            </mat-error>
+          </div>
         </div>
       </div>
 

@@ -9,7 +9,6 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 import { environment } from '../environments/environment';
-import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatIconModule,
@@ -22,26 +21,31 @@ import {
   MatDatepickerModule,
   MatSnackBarModule,
   MatDialogModule,
-  MatCardModule, MatSelectModule, MatRadioModule
+  MatCardModule,
+  MatSelectModule,
+  MatRadioModule,
+  MatMenuModule
 } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { RecordsComponent } from './records/records.component';
 import { RecordsService } from './records.service';
 import { AddRecordComponent } from './add-record/add-record.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FamilyFormComponent } from './family-form/family-form.component';
 import { MonthPickerComponent } from './month-picker/month-picker.component';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+import { SettingsModule } from './settings/settings.module';
+import { ToolbarComponent } from './toolbar/toolbar.component';
+import { RecordsContainerComponent } from './records-container/records-container.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
     RecordsComponent,
     AddRecordComponent,
-    FamilyFormComponent,
     MonthPickerComponent,
     DeleteDialogComponent,
+    ToolbarComponent,
+    RecordsContainerComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,7 +66,9 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
     MatToolbarModule,
     MatDatepickerModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    SettingsModule,
+    MatMenuModule
   ],
   bootstrap: [AppComponent],
   providers: [AngularFirestore, AngularFireAuth, RecordsService],
