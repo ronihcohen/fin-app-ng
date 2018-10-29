@@ -32,6 +32,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FamilyFormComponent } from './family-form/family-form.component';
 import { MonthPickerComponent } from './month-picker/month-picker.component';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+import { SettingsModule } from './settings/settings.module';
+import { ToolbarComponent } from './toolbar/toolbar.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,7 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
     FamilyFormComponent,
     MonthPickerComponent,
     DeleteDialogComponent,
+    ToolbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,7 +65,8 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
     MatToolbarModule,
     MatDatepickerModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    SettingsModule
   ],
   bootstrap: [AppComponent],
   providers: [AngularFirestore, AngularFireAuth, RecordsService],

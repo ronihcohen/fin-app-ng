@@ -1,0 +1,18 @@
+<mat-toolbar *ngIf="afAuth.user | async as user; else showLogin">
+  <p>FinaApp ({{ user.email }})</p>
+  <span style="flex: 1 1 auto;"></span>
+
+  <button (click)="logout()"
+          mat-raised-button
+          color="accent">Logout</button>
+</mat-toolbar>
+
+<ng-template #showLogin>
+  <mat-toolbar>
+    <p>FinaApp</p>
+    <span style="flex: 1 1 auto;"></span>
+    <button mat-raised-button
+            color="primary"
+            (click)="login()">Login with Google</button>
+  </mat-toolbar>
+</ng-template>
