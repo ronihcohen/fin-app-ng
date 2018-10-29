@@ -1,0 +1,6 @@
+<div *ngIf="familyID && afAuth.user | async as user">
+  <app-add-record [familyID]="familyID"
+                  [uid]="user.uid"></app-add-record>
+  <app-records [familyID]="familyID"
+               [isHandset]="isHandset"></app-records>
+</div>

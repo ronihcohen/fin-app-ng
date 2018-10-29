@@ -1,16 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { auth } from 'firebase/app';
 import { FamilyService } from '../family.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: 'login.component.html'
+  selector: 'app-records-container',
+  templateUrl: './records-container.component.html',
+  styleUrls: ['./records-container.component.scss']
 })
-export class LoginComponent implements OnInit {
-  familyID: String;
-  isHandset = false;
+export class RecordsContainerComponent implements OnInit {
   constructor(public afAuth: AngularFireAuth, public familyService: FamilyService, breakpointObserver: BreakpointObserver) {
     breakpointObserver.observe([
       Breakpoints.HandsetLandscape,
@@ -22,7 +20,8 @@ export class LoginComponent implements OnInit {
       }
     });
   }
-
+  familyID: String;
+  isHandset: Boolean;
   ngOnInit() {
     this.afAuth.user.subscribe(user => {
       if (!user) {
@@ -35,13 +34,6 @@ export class LoginComponent implements OnInit {
         this.familyID = userDetails.familyID;
       });
     });
-  }
-
-  login() {
-    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
-  }
-  logout() {
-    this.afAuth.auth.signOut();
   }
 
 }

@@ -9,7 +9,6 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 import { environment } from '../environments/environment';
-import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatIconModule,
@@ -33,16 +32,17 @@ import { MonthPickerComponent } from './month-picker/month-picker.component';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { SettingsModule } from './settings/settings.module';
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { RecordsContainerComponent } from './records-container/records-container.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
     RecordsComponent,
     AddRecordComponent,
     MonthPickerComponent,
     DeleteDialogComponent,
     ToolbarComponent,
+    RecordsContainerComponent,
   ],
   imports: [
     BrowserModule,
