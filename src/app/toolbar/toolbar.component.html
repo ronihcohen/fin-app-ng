@@ -1,24 +1,24 @@
 <mat-toolbar *ngIf="afAuth.user | async as user; else showLogin">
-  <p>FinaApp ({{ user.email }})</p>
-  <span style="flex: 1 1 auto;"></span>
-  <button mat-button
-          [matMenuTriggerFor]="menu">Menu</button>
-  <mat-menu #menu="matMenu">
-    <button routerLink="/"
-            mat-menu-item>Records</button>
-    <button routerLink="/settings"
-            mat-menu-item>Settings</button>
-    <button (click)="logout()"
-            mat-menu-item>Logout</button>
-  </mat-menu>
+        <p>FinaApp <span *ngIf="!isHandset">({{ user.email }})</span></p>
+        <span style="flex: 1 1 auto;"></span>
+        <button mat-button
+                [matMenuTriggerFor]="menu">Menu</button>
+        <mat-menu #menu="matMenu">
+                <button routerLink="/"
+                        mat-menu-item>Records</button>
+                <button routerLink="/settings"
+                        mat-menu-item>Settings</button>
+                <button (click)="logout()"
+                        mat-menu-item>Logout</button>
+        </mat-menu>
 </mat-toolbar>
 
 <ng-template #showLogin>
-  <mat-toolbar>
-    <p>FinaApp</p>
-    <span style="flex: 1 1 auto;"></span>
-    <button mat-raised-button
-            color="primary"
-            (click)="login()">Login with Google</button>
-  </mat-toolbar>
+        <mat-toolbar>
+                <p>FinaApp</p>
+                <span style="flex: 1 1 auto;"></span>
+                <button mat-raised-button
+                        color="primary"
+                        (click)="login()">Login with Google</button>
+        </mat-toolbar>
 </ng-template>
