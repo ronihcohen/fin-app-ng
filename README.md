@@ -1,4 +1,4 @@
-# FinApp
+# FinApp [![Build Status](https://travis-ci.com/ronihcohen/fin-app-ng.svg?branch=master)](https://travis-ci.com/ronihcohen/fin-app-ng)
 
 Personal budget web application.
 
