@@ -18,15 +18,15 @@ import { MatSnackBar } from '@angular/material';
 import { FormBuilder } from '@angular/forms';
 import { of } from 'rxjs';
 
-const AngularFireAuthStub = {
-  user: of({ uid: 'mock-uid' }),
-};
-
 describe('FamilyFormComponent', () => {
   let component: FamilyFormComponent;
   let fixture: ComponentFixture<FamilyFormComponent>;
 
   beforeEach(async(() => {
+    const AngularFireAuthStub = {
+      user: of({ uid: 'mock-uid' }),
+    };
+
     TestBed.configureTestingModule({
       declarations: [FamilyFormComponent],
       imports: [

@@ -38,9 +38,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { APP_BASE_HREF } from '@angular/common';
 
+import { AngularFireAuth } from '@angular/fire/auth';
+
+import { of } from 'rxjs';
+
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
+    const AngularFireAuthStub = {
+      user: of({ uid: 'mock-uid' }),
+    };
+
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
@@ -75,7 +83,10 @@ describe('AppComponent', () => {
         SettingsModule,
         MatMenuModule
       ],
-      providers: [{ provide: APP_BASE_HREF, useValue: '/' }],
+      providers: [
+        { provide: APP_BASE_HREF, useValue: '/' },
+        { provide: AngularFireAuth, useValue: AngularFireAuthStub },
+      ],
     }).compileComponents();
   }));
 
@@ -85,16 +96,4 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'fin-app-ng'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('fin-app-ng');
-  });
-
-  it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to fin-app-ng!');
-  });
 });

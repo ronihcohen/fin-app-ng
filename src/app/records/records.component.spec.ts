@@ -1,8 +1,21 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MatPaginatorModule, MatSortModule, MatTableModule } from '@angular/material';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import {
+  MatIconModule,
+  MatTableModule,
+  MatInputModule,
+  MatDatepickerModule,
+  MatCardModule,
+} from '@angular/material';
 
 import { RecordsComponent } from './records.component';
+import { MonthPickerComponent } from '../month-picker/month-picker.component';
+import {
+  AngularFirestore,
+} from '@angular/fire/firestore';
 
 describe('RecordsComponent', () => {
   let component: RecordsComponent;
@@ -10,13 +23,18 @@ describe('RecordsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RecordsComponent ],
+      declarations: [RecordsComponent, MonthPickerComponent],
       imports: [
         NoopAnimationsModule,
-        MatPaginatorModule,
-        MatSortModule,
         MatTableModule,
-      ]
+        MatCardModule,
+        MatIconModule,
+        MatDatepickerModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatInputModule
+      ],
+      providers: [{ provide: AngularFirestore }]
     }).compileComponents();
   }));
 
