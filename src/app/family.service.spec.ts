@@ -1,16 +1,15 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from "@angular/core/testing";
 
-import { FamilyService } from './family.service';
-import {
-  AngularFirestore,
-} from '@angular/fire/firestore';
+import { FamilyService } from "./family.service";
+import { AngularFirestore } from "@angular/fire/firestore";
 
-describe('FamilyService', () => {
-  beforeEach(() => TestBed.configureTestingModule({
-    providers: [{ provide: AngularFirestore }]
-  }));
+describe("FamilyService", () => {
+  beforeEach(() =>
+    TestBed.configureTestingModule({
+      providers: [{ provide: AngularFirestore }]
+    }));
 
-  it('should be created', () => {
+  it("should be created", () => {
     const service: FamilyService = TestBed.get(FamilyService);
     expect(service).toBeTruthy();
   });

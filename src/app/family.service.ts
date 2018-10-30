@@ -1,22 +1,24 @@
-import { Injectable } from '@angular/core';
-import {
-  AngularFirestore,
-} from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { AngularFirestore } from "@angular/fire/firestore";
+import { Observable } from "rxjs";
 
-export interface UserDetails { familyID: string; }
+export interface UserDetails {
+  familyID: string;
+}
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class FamilyService {
-  constructor(private afs: AngularFirestore) {
-  }
+  constructor(private afs: AngularFirestore) {}
 
   updateFamilyID(familyID: string, uid: string): Promise<void> {
-    return this.afs.collection('users').doc(uid).set({
-      familyID: familyID
-    });
+    return this.afs
+      .collection("users")
+      .doc(uid)
+      .set({
+        familyID: familyID
+      });
   }
 
   getUserDetails(uid): Observable<UserDetails> {

@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { ToolbarComponent } from './toolbar.component';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { Router } from '@angular/router';
+import { ToolbarComponent } from "./toolbar.component";
+import { AngularFireAuth } from "@angular/fire/auth";
+import { Router } from "@angular/router";
 
 import {
   MatIconModule,
@@ -19,19 +19,17 @@ import {
   MatSelectModule,
   MatRadioModule,
   MatMenuModule
-} from '@angular/material';
+} from "@angular/material";
 
-import { of } from 'rxjs';
+import { of } from "rxjs";
 
-
-describe('ToolbarComponent', () => {
+describe("ToolbarComponent", () => {
   let component: ToolbarComponent;
   let fixture: ComponentFixture<ToolbarComponent>;
 
   beforeEach(async(() => {
-
     const AngularFireAuthStub = {
-      user: of({ uid: 'mock-uid' }),
+      user: of({ uid: "mock-uid" })
     };
 
     TestBed.configureTestingModule({
@@ -52,9 +50,11 @@ describe('ToolbarComponent', () => {
         // MatDialogModule,
         MatMenuModule
       ],
-      providers: [{ provide: AngularFireAuth, useValue: AngularFireAuthStub }, { provide: Router }]
-    })
-      .compileComponents();
+      providers: [
+        { provide: AngularFireAuth, useValue: AngularFireAuthStub },
+        { provide: Router }
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -63,7 +63,7 @@ describe('ToolbarComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

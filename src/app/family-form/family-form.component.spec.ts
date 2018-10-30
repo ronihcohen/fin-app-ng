@@ -1,30 +1,30 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { ReactiveFormsModule } from "@angular/forms";
+import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import {
   MatButtonModule,
   MatCardModule,
   MatInputModule,
   MatRadioModule,
-  MatSelectModule,
-} from '@angular/material';
+  MatSelectModule
+} from "@angular/material";
 
-import { FamilyFormComponent } from './family-form.component';
+import { FamilyFormComponent } from "./family-form.component";
 
-import { Router } from '@angular/router';
-import { FamilyService } from '../family.service';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { MatSnackBar } from '@angular/material';
-import { FormBuilder } from '@angular/forms';
-import { of } from 'rxjs';
+import { Router } from "@angular/router";
+import { FamilyService } from "../family.service";
+import { AngularFireAuth } from "@angular/fire/auth";
+import { MatSnackBar } from "@angular/material";
+import { FormBuilder } from "@angular/forms";
+import { of } from "rxjs";
 
-describe('FamilyFormComponent', () => {
+describe("FamilyFormComponent", () => {
   let component: FamilyFormComponent;
   let fixture: ComponentFixture<FamilyFormComponent>;
 
   beforeEach(async(() => {
     const AngularFireAuthStub = {
-      user: of({ uid: 'mock-uid' }),
+      user: of({ uid: "mock-uid" })
     };
 
     TestBed.configureTestingModule({
@@ -36,7 +36,7 @@ describe('FamilyFormComponent', () => {
         MatCardModule,
         MatInputModule,
         MatRadioModule,
-        MatSelectModule,
+        MatSelectModule
       ],
       providers: [
         { provide: Router },
@@ -45,7 +45,6 @@ describe('FamilyFormComponent', () => {
         FormBuilder,
         MatSnackBar
       ]
-
     }).compileComponents();
   }));
 
@@ -55,7 +54,7 @@ describe('FamilyFormComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should compile', () => {
+  it("should compile", () => {
     expect(component).toBeTruthy();
   });
 });

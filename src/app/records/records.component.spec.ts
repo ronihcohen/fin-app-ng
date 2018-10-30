@@ -1,23 +1,21 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import {
   MatIconModule,
   MatTableModule,
   MatInputModule,
   MatDatepickerModule,
-  MatCardModule,
-} from '@angular/material';
+  MatCardModule
+} from "@angular/material";
 
-import { RecordsComponent } from './records.component';
-import { MonthPickerComponent } from '../month-picker/month-picker.component';
-import {
-  AngularFirestore,
-} from '@angular/fire/firestore';
+import { RecordsComponent } from "./records.component";
+import { MonthPickerComponent } from "../month-picker/month-picker.component";
+import { AngularFirestore } from "@angular/fire/firestore";
 
-describe('RecordsComponent', () => {
+describe("RecordsComponent", () => {
   let component: RecordsComponent;
   let fixture: ComponentFixture<RecordsComponent>;
 
@@ -44,7 +42,7 @@ describe('RecordsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should compile', () => {
+  it("should compile", () => {
     expect(component).toBeTruthy();
   });
 });

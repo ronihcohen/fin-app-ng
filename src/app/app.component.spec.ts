@@ -1,13 +1,13 @@
-import { TestBed, async } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { TestBed, async } from "@angular/core/testing";
+import { RouterTestingModule } from "@angular/router/testing";
 
-import { AppComponent } from './app.component';
-import { RecordsComponent } from './records/records.component';
-import { AddRecordComponent } from './add-record/add-record.component';
-import { MonthPickerComponent } from './month-picker/month-picker.component';
-import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
-import { ToolbarComponent } from './toolbar/toolbar.component';
-import { RecordsContainerComponent } from './records-container/records-container.component';
+import { AppComponent } from "./app.component";
+import { RecordsComponent } from "./records/records.component";
+import { AddRecordComponent } from "./add-record/add-record.component";
+import { MonthPickerComponent } from "./month-picker/month-picker.component";
+import { DeleteDialogComponent } from "./delete-dialog/delete-dialog.component";
+import { ToolbarComponent } from "./toolbar/toolbar.component";
+import { RecordsContainerComponent } from "./records-container/records-container.component";
 
 import {
   MatIconModule,
@@ -24,29 +24,28 @@ import {
   MatSelectModule,
   MatRadioModule,
   MatMenuModule
-} from '@angular/material';
+} from "@angular/material";
 
-import { ReactiveFormsModule } from '@angular/forms';
-import { LayoutModule } from '@angular/cdk/layout';
-import { SettingsModule } from './settings/settings.module';
+import { ReactiveFormsModule } from "@angular/forms";
+import { LayoutModule } from "@angular/cdk/layout";
+import { SettingsModule } from "./settings/settings.module";
 
-import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing.module';
-import { AngularFireModule } from '@angular/fire';
-import { environment } from '../environments/environment';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from "@angular/platform-browser";
+import { AppRoutingModule } from "./app-routing.module";
+import { AngularFireModule } from "@angular/fire";
+import { environment } from "../environments/environment";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
-import { APP_BASE_HREF } from '@angular/common';
+import { APP_BASE_HREF } from "@angular/common";
 
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from "@angular/fire/auth";
 
-import { of } from 'rxjs';
+import { of } from "rxjs";
 
-
-describe('AppComponent', () => {
+describe("AppComponent", () => {
   beforeEach(async(() => {
     const AngularFireAuthStub = {
-      user: of({ uid: 'mock-uid' }),
+      user: of({ uid: "mock-uid" })
     };
 
     TestBed.configureTestingModule({
@@ -57,7 +56,7 @@ describe('AppComponent', () => {
         MonthPickerComponent,
         DeleteDialogComponent,
         ToolbarComponent,
-        RecordsContainerComponent,
+        RecordsContainerComponent
       ],
       imports: [
         RouterTestingModule,
@@ -84,16 +83,15 @@ describe('AppComponent', () => {
         MatMenuModule
       ],
       providers: [
-        { provide: APP_BASE_HREF, useValue: '/' },
-        { provide: AngularFireAuth, useValue: AngularFireAuthStub },
-      ],
+        { provide: APP_BASE_HREF, useValue: "/" },
+        { provide: AngularFireAuth, useValue: AngularFireAuthStub }
+      ]
     }).compileComponents();
   }));
 
-  it('should create the app', () => {
+  it("should create the app", () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   });
-
 });

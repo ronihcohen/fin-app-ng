@@ -5,9 +5,9 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: 'AIzaSyCoQw641BRZpmyeDQ-wkHU2o9tJbwKBbKk',
-    projectId: 'rooms-9c314',
-    authDomain: 'rooms-9c314.firebaseapp.com'
+    apiKey: "AIzaSyCoQw641BRZpmyeDQ-wkHU2o9tJbwKBbKk",
+    projectId: "rooms-9c314",
+    authDomain: "rooms-9c314.firebaseapp.com"
   }
 };
 

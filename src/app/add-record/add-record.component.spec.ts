@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { ReactiveFormsModule } from "@angular/forms";
+import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import {
   MatButtonModule,
   MatCardModule,
@@ -8,21 +8,22 @@ import {
   MatRadioModule,
   MatSelectModule,
   MatSnackBarModule
-} from '@angular/material';
+} from "@angular/material";
 
-import { AddRecordComponent } from './add-record.component';
-import { RecordsService } from '../records.service';
-import { MatSnackBar } from '@angular/material';
-import { FormBuilder } from '@angular/forms';
+import { AddRecordComponent } from "./add-record.component";
+import { RecordsService } from "../records.service";
+import { MatSnackBar } from "@angular/material";
+import { FormBuilder } from "@angular/forms";
 
-describe('AddRecordComponent', () => {
+describe("AddRecordComponent", () => {
   let component: AddRecordComponent;
   let fixture: ComponentFixture<AddRecordComponent>;
   let addRecordSpy;
 
   beforeEach(async(() => {
-
-    const RecordsServiceMock = jasmine.createSpyObj('RecordsService', ['addRecord']);
+    const RecordsServiceMock = jasmine.createSpyObj("RecordsService", [
+      "addRecord"
+    ]);
     addRecordSpy = RecordsServiceMock.addRecord.and.returnValue(true);
 
     TestBed.configureTestingModule({
@@ -37,7 +38,11 @@ describe('AddRecordComponent', () => {
         MatSelectModule,
         MatSnackBarModule
       ],
-      providers: [{ provide: RecordsService, useValue: RecordsServiceMock }, FormBuilder, MatSnackBar]
+      providers: [
+        { provide: RecordsService, useValue: RecordsServiceMock },
+        FormBuilder,
+        MatSnackBar
+      ]
     }).compileComponents();
   }));
 
@@ -47,47 +52,55 @@ describe('AddRecordComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should compile', () => {
+  it("should compile", () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call addRecord on valid submit', () => {
+  it("should call addRecord on valid submit", () => {
     const addRecordElement: HTMLElement = fixture.nativeElement;
-    const button = addRecordElement.querySelector('button');
-    const titleInput: HTMLInputElement = addRecordElement.querySelector('#title-input');
-    const amountInput: HTMLInputElement = addRecordElement.querySelector('#amount-input');
+    const button = addRecordElement.querySelector("button");
+    const titleInput: HTMLInputElement = addRecordElement.querySelector(
+      "#title-input"
+    );
+    const amountInput: HTMLInputElement = addRecordElement.querySelector(
+      "#amount-input"
+    );
 
-    titleInput.value = 'aaa';
-    amountInput.value = '123';
+    titleInput.value = "aaa";
+    amountInput.value = "123";
 
-    titleInput.dispatchEvent(new Event('input'));
-    amountInput.dispatchEvent(new Event('input'));
+    titleInput.dispatchEvent(new Event("input"));
+    amountInput.dispatchEvent(new Event("input"));
     fixture.detectChanges();
 
-    expect(button.textContent).toEqual('Submit');
+    expect(button.textContent).toEqual("Submit");
 
     button.click();
-    expect(addRecordSpy.calls.any()).toBe(true, 'addRecord called');
-    expect(titleInput.value).toBe('');
+    expect(addRecordSpy.calls.any()).toBe(true, "addRecord called");
+    expect(titleInput.value).toBe("");
   });
 
-  it('should not call addRecord on invalid submit', () => {
+  it("should not call addRecord on invalid submit", () => {
     const addRecordElement: HTMLElement = fixture.nativeElement;
-    const button = addRecordElement.querySelector('button');
-    const titleInput: HTMLInputElement = addRecordElement.querySelector('#title-input');
-    const amountInput: HTMLInputElement = addRecordElement.querySelector('#amount-input');
+    const button = addRecordElement.querySelector("button");
+    const titleInput: HTMLInputElement = addRecordElement.querySelector(
+      "#title-input"
+    );
+    const amountInput: HTMLInputElement = addRecordElement.querySelector(
+      "#amount-input"
+    );
 
-    titleInput.value = 'aaa';
-    amountInput.value = 'aaa'; // should be a number so the form is invalid
+    titleInput.value = "aaa";
+    amountInput.value = "aaa"; // should be a number so the form is invalid
 
-    titleInput.dispatchEvent(new Event('input'));
-    amountInput.dispatchEvent(new Event('input'));
+    titleInput.dispatchEvent(new Event("input"));
+    amountInput.dispatchEvent(new Event("input"));
     fixture.detectChanges();
 
-    expect(button.textContent).toEqual('Submit');
+    expect(button.textContent).toEqual("Submit");
 
     button.click();
-    expect(addRecordSpy.calls.any()).toBe(false, 'addRecord want called');
-    expect(titleInput.value).toBe('aaa');
+    expect(addRecordSpy.calls.any()).toBe(false, "addRecord wasn't called");
+    expect(titleInput.value).toBe("aaa");
   });
 });

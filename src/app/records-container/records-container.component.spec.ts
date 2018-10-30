@@ -1,10 +1,10 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { RecordsContainerComponent } from './records-container.component';
-import { RecordsComponent } from '../records/records.component';
-import { AddRecordComponent } from '../add-record/add-record.component';
-import { MonthPickerComponent } from '../month-picker/month-picker.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RecordsContainerComponent } from "./records-container.component";
+import { RecordsComponent } from "../records/records.component";
+import { AddRecordComponent } from "../add-record/add-record.component";
+import { MonthPickerComponent } from "../month-picker/month-picker.component";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import {
   MatCardModule,
@@ -12,22 +12,20 @@ import {
   MatIconModule,
   MatInputModule,
   MatDatepickerModule
-} from '@angular/material';
+} from "@angular/material";
 
-import { AngularFireAuth } from '@angular/fire/auth';
-import {
-  AngularFirestore,
-} from '@angular/fire/firestore';
+import { AngularFireAuth } from "@angular/fire/auth";
+import { AngularFirestore } from "@angular/fire/firestore";
 
-import { of } from 'rxjs';
+import { of } from "rxjs";
 
-describe('RecordsContainerComponent', () => {
+describe("RecordsContainerComponent", () => {
   let component: RecordsContainerComponent;
   let fixture: ComponentFixture<RecordsContainerComponent>;
 
   beforeEach(async(() => {
     const AngularFireAuthStub = {
-      user: of({ uid: 'mock-uid' }),
+      user: of({ uid: "mock-uid" })
     };
 
     TestBed.configureTestingModule({
@@ -44,14 +42,13 @@ describe('RecordsContainerComponent', () => {
         MatTableModule,
         MatIconModule,
         MatInputModule,
-        MatDatepickerModule,
+        MatDatepickerModule
       ],
       providers: [
         { provide: AngularFireAuth, useValue: AngularFireAuthStub },
         { provide: AngularFirestore }
       ]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -60,7 +57,7 @@ describe('RecordsContainerComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

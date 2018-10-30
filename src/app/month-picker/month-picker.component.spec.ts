@@ -1,15 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 
-import { MonthPickerComponent } from './month-picker.component';
+import { MonthPickerComponent } from "./month-picker.component";
 import {
   MatDatepickerModule,
   MatFormFieldModule,
   MatInputModule
-} from '@angular/material';
+} from "@angular/material";
 
-describe('MonthPickerComponent', () => {
+describe("MonthPickerComponent", () => {
   let component: MonthPickerComponent;
   let fixture: ComponentFixture<MonthPickerComponent>;
 
@@ -23,9 +23,8 @@ describe('MonthPickerComponent', () => {
         ReactiveFormsModule,
         MatInputModule,
         NoopAnimationsModule
-      ],
-    })
-      .compileComponents();
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -34,7 +33,7 @@ describe('MonthPickerComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });
