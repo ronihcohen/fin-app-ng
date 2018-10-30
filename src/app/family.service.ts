@@ -4,7 +4,7 @@ import {
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
-export interface UserDetails { familyID: String; }
+export interface UserDetails { familyID: string; }
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,8 @@ export interface UserDetails { familyID: String; }
 export class FamilyService {
   constructor(private afs: AngularFirestore) {
   }
-  updateFamilyID(familyID, uid) {
+
+  updateFamilyID(familyID: string, uid: string): Promise<void> {
     return this.afs.collection('users').doc(uid).set({
       familyID: familyID
     });

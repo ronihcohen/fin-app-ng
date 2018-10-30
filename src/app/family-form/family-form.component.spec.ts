@@ -11,13 +11,24 @@ import {
 
 import { FamilyFormComponent } from './family-form.component';
 
+import { Router } from '@angular/router';
+import { FamilyService } from '../family.service';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { MatSnackBar } from '@angular/material';
+import { FormBuilder } from '@angular/forms';
+import { of } from 'rxjs';
+
+const AngularFireAuthStub = {
+  user: of({ uid: 'mock-uid' }),
+};
+
 describe('FamilyFormComponent', () => {
   let component: FamilyFormComponent;
   let fixture: ComponentFixture<FamilyFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FamilyFormComponent ],
+      declarations: [FamilyFormComponent],
       imports: [
         NoopAnimationsModule,
         ReactiveFormsModule,
@@ -26,7 +37,15 @@ describe('FamilyFormComponent', () => {
         MatInputModule,
         MatRadioModule,
         MatSelectModule,
+      ],
+      providers: [
+        { provide: Router },
+        { provide: FamilyService },
+        { provide: AngularFireAuth, useValue: AngularFireAuthStub },
+        FormBuilder,
+        MatSnackBar
       ]
+
     }).compileComponents();
   }));
 

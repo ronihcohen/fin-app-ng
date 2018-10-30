@@ -1,6 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RecordsContainerComponent } from './records-container.component';
+import { RecordsComponent } from '../records/records.component';
+import { AddRecordComponent } from '../add-record/add-record.component';
+import { MonthPickerComponent } from '../month-picker/month-picker.component';
+
+import {
+  MatCardModule,
+} from '@angular/material';
 
 describe('RecordsContainerComponent', () => {
   let component: RecordsContainerComponent;
@@ -8,9 +15,17 @@ describe('RecordsContainerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RecordsContainerComponent ]
+      declarations: [
+        RecordsContainerComponent,
+        RecordsComponent,
+        AddRecordComponent,
+        MonthPickerComponent
+      ],
+      imports: [
+        MatCardModule
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

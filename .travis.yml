@@ -21,4 +21,3 @@ install:
 
 script:
   - npm run test -- --single-run --browser=ChromeHeadlessCI
-  # - npm run e2e -- --no-progress --config=protractor-ci.conf.js

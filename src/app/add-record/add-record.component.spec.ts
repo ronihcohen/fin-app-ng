@@ -10,6 +10,9 @@ import {
 } from '@angular/material';
 
 import { AddRecordComponent } from './add-record.component';
+import { RecordsService } from '../records.service';
+import { MatSnackBar } from '@angular/material';
+import { FormBuilder } from '@angular/forms';
 
 describe('AddRecordComponent', () => {
   let component: AddRecordComponent;
@@ -17,7 +20,7 @@ describe('AddRecordComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddRecordComponent ],
+      declarations: [AddRecordComponent],
       imports: [
         NoopAnimationsModule,
         ReactiveFormsModule,
@@ -26,7 +29,8 @@ describe('AddRecordComponent', () => {
         MatInputModule,
         MatRadioModule,
         MatSelectModule,
-      ]
+      ],
+      providers: [{ provide: RecordsService }, FormBuilder, MatSnackBar]
     }).compileComponents();
   }));
 

@@ -22,7 +22,7 @@ export class FamilyFormComponent implements OnInit {
     private familyService: FamilyService,
     public afAuth: AngularFireAuth,
     public snackBar: MatSnackBar) { }
-  uid: String;
+  uid: string;
   ngOnInit() {
     this.afAuth.user.subscribe(user => {
       if (user) {

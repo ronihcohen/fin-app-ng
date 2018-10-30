@@ -10,6 +10,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import {
   MatIconModule,
   MatButtonModule,
@@ -26,14 +27,16 @@ import {
   MatRadioModule,
   MatMenuModule
 } from '@angular/material';
-import { LayoutModule } from '@angular/cdk/layout';
-import { RecordsComponent } from './records/records.component';
 import { RecordsService } from './records.service';
-import { AddRecordComponent } from './add-record/add-record.component';
+
 import { ReactiveFormsModule } from '@angular/forms';
+import { LayoutModule } from '@angular/cdk/layout';
+import { SettingsModule } from './settings/settings.module';
+
+import { RecordsComponent } from './records/records.component';
+import { AddRecordComponent } from './add-record/add-record.component';
 import { MonthPickerComponent } from './month-picker/month-picker.component';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
-import { SettingsModule } from './settings/settings.module';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { RecordsContainerComponent } from './records-container/records-container.component';
 
