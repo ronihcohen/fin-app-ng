@@ -3,7 +3,6 @@
         <mat-card-title>Current balance for
             <app-month-picker (handleDateChange)="handleDateChange($event)"></app-month-picker>
         </mat-card-title>
-        <mat-card-subtitle *ngIf="dataSource?.dataLength === 0">No records found.</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
@@ -58,9 +57,11 @@
                 *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
         <div *ngIf="dataSource?.dataLength > 0"
-             class="amount-container">
+             class="footer-text">
             Total amount: {{dataSource.totalAmount | currency:'ILS'}}
         </div>
+        <div class="footer-text"
+             *ngIf="dataSource?.dataLength === 0">No records found.</div>
     </mat-card-content>
 
 

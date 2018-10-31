@@ -82,6 +82,11 @@ export class RecordsComponent implements OnChanges {
 
   handleDateChange(date: Moment) {
     this.currentDate = date.toDate();
-    // this.dataSource = new RecordsDataSource(date, this.records, this.familyID);
+    this.dataSource = new RecordsDataSource(
+      date,
+      this.records,
+      this.familyID,
+      this.searchValue.valueChanges
+    );
   }
 }
