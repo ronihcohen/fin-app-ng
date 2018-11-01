@@ -26,7 +26,15 @@ export class RecordsDataSource extends DataSource<Record> {
    */
   connect(): Observable<Record[]> {
     const records$ = this.records.getRecords(this.familyID, this.date);
-    this.recordsSubscription = records$.subscribe(
+
+    const combinedWithSearch$ = this.searchChanges$.pipe(
+      startWith(""),
+      combineLatest(records$, (searchValue, records) => {
+        return records.filter(record => record.title.includes(searchValue));
+      })
+    );
+
+    this.recordsSubscription = combinedWithSearch$.subscribe(
       data => {
         this.dataLength = data.length;
         this.totalAmount = data.reduce((acc, cur) => acc + cur.amount, 0);
@@ -36,12 +44,7 @@ export class RecordsDataSource extends DataSource<Record> {
       }
     );
 
-    return this.searchChanges$.pipe(
-      startWith(""),
-      combineLatest(records$, (searchValue, records) => {
-        return records.filter(record => record.title.includes(searchValue));
-      })
-    );
+    return combinedWithSearch$;
   }
   disconnect() {
     if (this.recordsSubscription) {

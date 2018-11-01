@@ -81,11 +81,33 @@ describe("RecordsComponent", () => {
   it("should render records", () => {
     expect(component).toBeTruthy();
     component.familyID = "f-id";
-
     component.ngOnChanges({
       familyID: new SimpleChange(null, component.familyID, null)
     });
+    fixture.detectChanges();
+  });
+
+  it("should filter by search value", () => {
+    expect(component).toBeTruthy();
+    component.familyID = "f-id";
+    component.ngOnChanges({
+      familyID: new SimpleChange(null, component.familyID, null)
+    });
+    fixture.detectChanges();
+
+    const recordElement: HTMLElement = fixture.nativeElement;
+    const searchInput: HTMLInputElement = recordElement.querySelector(
+      "#search-input"
+    );
+    const columnTitle = recordElement.querySelector(
+      ".mat-row .mat-column-title"
+    );
+    searchInput.value = "title1";
+    searchInput.dispatchEvent(new Event("input"));
 
     fixture.detectChanges();
+
+    expect(component.dataSource.dataLength).toEqual(1);
+    expect(columnTitle.textContent).toEqual("title1");
   });
 });
