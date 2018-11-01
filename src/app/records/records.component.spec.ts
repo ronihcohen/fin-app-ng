@@ -23,27 +23,30 @@ describe("RecordsComponent", () => {
   let fixture: ComponentFixture<RecordsComponent>;
 
   beforeEach(async(() => {
-    const RecordsServiceMock = {
-      getRecords: () =>
-        of([
-          {
-            amount: 123,
-            date: new Date(),
-            familyID: "f-id",
-            title: "title",
-            uid: "u-id",
-            id: "id"
-          },
-          {
-            amount: 1234,
-            date: new Date(),
-            familyID: "f-id3",
-            title: "title4",
-            uid: "u-id5",
-            id: "id6"
-          }
-        ])
-    };
+    const RecordsServiceMock = jasmine.createSpyObj("RecordsService", [
+      "getRecords"
+    ]);
+    RecordsServiceMock.getRecords.and.returnValue(
+      of([
+        {
+          amount: 1,
+          date: new Date(),
+          familyID: "f-id1",
+          title: "title1",
+          uid: "u-id1",
+          id: "id1"
+        },
+        {
+          amount: 2,
+          date: new Date(),
+          familyID: "f-id2",
+          title: "title2",
+          uid: "u-id2",
+          id: "id2"
+        }
+      ])
+    );
+
     TestBed.configureTestingModule({
       declarations: [RecordsComponent, MonthPickerComponent],
       imports: [
@@ -67,6 +70,8 @@ describe("RecordsComponent", () => {
     fixture = TestBed.createComponent(RecordsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
+    component.displayedColumns = ["title", "amount"];
   });
 
   it("should compile", () => {
@@ -80,7 +85,7 @@ describe("RecordsComponent", () => {
     component.ngOnChanges({
       familyID: new SimpleChange(null, component.familyID, null)
     });
-    component.dataSource = null;
+
     fixture.detectChanges();
   });
 });
