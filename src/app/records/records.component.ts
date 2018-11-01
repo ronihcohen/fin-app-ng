@@ -1,10 +1,4 @@
-import {
-  Component,
-  SimpleChanges,
-  Input,
-  OnChanges,
-  ViewChild
-} from "@angular/core";
+import { Component, SimpleChanges, Input, OnChanges } from "@angular/core";
 import { MatDialog } from "@angular/material";
 import { RecordsDataSource } from "./records-datasource";
 import { RecordsService } from "../records.service";
