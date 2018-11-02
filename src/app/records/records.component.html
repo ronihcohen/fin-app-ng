@@ -1,18 +1,18 @@
 <mat-card class="general-card">
-    <mat-card-header>
-        <mat-card-title>Current balance for
-            <app-month-picker [isHandset]="isHandset"
-                              (handleDateChange)="handleDateChange($event)"></app-month-picker>
-        </mat-card-title>
-    </mat-card-header>
-
     <mat-card-content>
-        <mat-form-field class="full-width">
-            <input matInput
-                   [formControl]="searchValue"
-                   id="search-input"
-                   placeholder="Search">
-        </mat-form-field>
+        <div class="row">
+            <div class="col">
+                <mat-form-field class="full-width">
+                    <input matInput
+                           [formControl]="searchValue"
+                           id="search-input"
+                           placeholder="Search">
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <app-month-picker (handleDateChange)="handleDateChange($event)"></app-month-picker>
+            </div>
+        </div>
         <table mat-table
                class="full-width-table"
                [dataSource]="dataSource"

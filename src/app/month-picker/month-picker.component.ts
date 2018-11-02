@@ -46,8 +46,6 @@ export class MonthPickerComponent {
   date = new FormControl(_moment());
   @Output()
   handleDateChange = new EventEmitter<Moment>();
-  @Input()
-  isHandset: boolean;
 
   chosenYearHandler(normalizedYear: Moment) {
     const ctrlValue = this.date.value;

@@ -20,7 +20,7 @@ export class RecordsContainerComponent {
     breakpointObserver: BreakpointObserver
   ) {
     breakpointObserver
-      .observe([Breakpoints.HandsetLandscape, Breakpoints.HandsetPortrait])
+      .observe([Breakpoints.HandsetPortrait])
       .subscribe(result => {
         this.isHandset = false;
         if (result.matches) {

@@ -1,6 +1,4 @@
 .month-picker {
-  width: 110px;
-  &.handset {
-    width: 175px;
-  }
+  width: 100%;
+  min-width: 90px;
 }
