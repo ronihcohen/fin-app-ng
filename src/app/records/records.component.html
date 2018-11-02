@@ -27,6 +27,8 @@
                     [ngClass]={rtl:true}>
                     {{row.title}}
                     <mat-menu #menu="matMenu">
+                        <button (click)="cloneRecord(row)"
+                                mat-menu-item>Clone record</button>
                         <button (click)="handleDeleteClick(row)"
                                 mat-menu-item>Delete</button>
                     </mat-menu>

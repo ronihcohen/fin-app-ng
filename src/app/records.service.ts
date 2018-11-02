@@ -10,13 +10,17 @@ import { Moment } from "moment";
 export interface Record {
   title: string;
   amount: number;
-  category: string;
   date: Date;
   familyID: String;
-  id: String;
+  uid: String;
 }
 export interface Doc {
   records: Record[];
+}
+
+export interface NewRecord {
+  title: string;
+  amount: number;
 }
 
 @Injectable({
@@ -46,8 +50,8 @@ export class RecordsService {
     );
   }
 
-  addRecord(record: Record, familyID: String, uid: String) {
-    const newRecord = {
+  addRecord(record: NewRecord, familyID: String, uid: String) {
+    const newRecord: Record = {
       ...record,
       familyID: familyID,
       uid: uid,
