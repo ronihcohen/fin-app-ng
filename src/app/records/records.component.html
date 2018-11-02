@@ -3,12 +3,15 @@
         <mat-card-title>Current balance for
             <app-month-picker (handleDateChange)="handleDateChange($event)"></app-month-picker>
         </mat-card-title>
-        <mat-card-subtitle *ngIf="dataSource?.dataLength > 0">Total amount: {{dataSource.totalAmount | currency:'ILS'}}
-        </mat-card-subtitle>
-        <mat-card-subtitle *ngIf="dataSource?.dataLength === 0">No records found.</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
+        <mat-form-field class="full-width">
+            <input matInput
+                   [formControl]="searchValue"
+                   id="search-input"
+                   placeholder="Search">
+        </mat-form-field>
         <table mat-table
                class="full-width-table"
                [dataSource]="dataSource"
@@ -53,7 +56,12 @@
             <tr mat-row
                 *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-
+        <div [hidden]="dataSource?.dataLength === 0"
+             class="footer-text">
+            Total amount: {{dataSource?.totalAmount | currency:'ILS'}}
+        </div>
+        <div class="footer-text"
+             [hidden]="dataSource?.dataLength > 0">No records found.</div>
     </mat-card-content>
 
 

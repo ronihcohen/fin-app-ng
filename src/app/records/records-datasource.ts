@@ -3,15 +3,18 @@ import { Observable } from "rxjs";
 import { RecordsService, Record } from "../records.service";
 import { Moment } from "moment";
 import { Subscription } from "rxjs";
+import { combineLatest, startWith } from "rxjs/operators";
 
 export class RecordsDataSource extends DataSource<Record> {
   dataLength: Number;
   totalAmount: Number;
   recordsSubscription: Subscription;
+
   constructor(
     private date: Moment,
     private records: RecordsService,
-    private familyID: String
+    private familyID: String,
+    private searchChanges$: Observable<string>
   ) {
     super();
   }
@@ -22,8 +25,16 @@ export class RecordsDataSource extends DataSource<Record> {
    * @returns A stream of the items to be rendered.
    */
   connect(): Observable<Record[]> {
-    const recordsObserver = this.records.getRecords(this.familyID, this.date);
-    this.recordsSubscription = recordsObserver.subscribe(
+    const records$ = this.records.getRecords(this.familyID, this.date);
+
+    const combinedWithSearch$ = this.searchChanges$.pipe(
+      startWith(""),
+      combineLatest(records$, (searchValue, records) => {
+        return records.filter(record => record.title.includes(searchValue));
+      })
+    );
+
+    this.recordsSubscription = combinedWithSearch$.subscribe(
       data => {
         this.dataLength = data.length;
         this.totalAmount = data.reduce((acc, cur) => acc + cur.amount, 0);
@@ -32,7 +43,8 @@ export class RecordsDataSource extends DataSource<Record> {
         console.log("RecordsDataSource: ", this.familyID, this.date, err);
       }
     );
-    return recordsObserver;
+
+    return combinedWithSearch$;
   }
   disconnect() {
     if (this.recordsSubscription) {

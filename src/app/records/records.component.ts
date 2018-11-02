@@ -3,9 +3,9 @@ import { MatDialog } from "@angular/material";
 import { RecordsDataSource } from "./records-datasource";
 import { RecordsService } from "../records.service";
 import * as _moment from "moment";
-// tslint:disable-next-line:no-duplicate-imports
 import { Moment } from "moment";
 import { DeleteDialogComponent } from "../delete-dialog/delete-dialog.component";
+import { FormControl } from "@angular/forms";
 
 @Component({
   selector: "app-records",
@@ -14,13 +14,15 @@ import { DeleteDialogComponent } from "../delete-dialog/delete-dialog.component"
 })
 export class RecordsComponent implements OnChanges {
   @Input()
-  familyID: String;
+  familyID: string;
   @Input()
-  isHandset: Boolean;
+  isHandset: boolean;
 
   dataSource: RecordsDataSource;
   currentDate: Date;
   displayedColumns: Array<string>;
+
+  searchValue = new FormControl("");
 
   constructor(private records: RecordsService, public dialog: MatDialog) {}
 
@@ -29,7 +31,12 @@ export class RecordsComponent implements OnChanges {
     if (this.dataSource) {
       this.dataSource.disconnect();
     }
-    this.dataSource = new RecordsDataSource(_moment(), this.records, familyID);
+    this.dataSource = new RecordsDataSource(
+      _moment(),
+      this.records,
+      familyID,
+      this.searchValue.valueChanges
+    );
   }
 
   onViewportChange() {
@@ -69,6 +76,11 @@ export class RecordsComponent implements OnChanges {
 
   handleDateChange(date: Moment) {
     this.currentDate = date.toDate();
-    this.dataSource = new RecordsDataSource(date, this.records, this.familyID);
+    this.dataSource = new RecordsDataSource(
+      date,
+      this.records,
+      this.familyID,
+      this.searchValue.valueChanges
+    );
   }
 }
