@@ -70,26 +70,12 @@ describe("RecordsComponent", () => {
     fixture = TestBed.createComponent(RecordsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+  });
 
+  it("should filter records by search value", () => {
+    expect(component).toBeTruthy();
+    component.familyID = "f-id";
     component.displayedColumns = ["title", "amount"];
-  });
-
-  it("should compile", () => {
-    expect(component).toBeTruthy();
-  });
-
-  it("should render records", () => {
-    expect(component).toBeTruthy();
-    component.familyID = "f-id";
-    component.ngOnChanges({
-      familyID: new SimpleChange(null, component.familyID, null)
-    });
-    fixture.detectChanges();
-  });
-
-  it("should filter by search value", () => {
-    expect(component).toBeTruthy();
-    component.familyID = "f-id";
     component.ngOnChanges({
       familyID: new SimpleChange(null, component.familyID, null)
     });
@@ -109,5 +95,6 @@ describe("RecordsComponent", () => {
 
     expect(component.dataSource.dataLength).toEqual(1);
     expect(columnTitle.textContent).toEqual("title1");
+    expect(columnTitle.textContent).not.toEqual("title2");
   });
 });
