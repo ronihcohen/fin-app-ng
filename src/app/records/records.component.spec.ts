@@ -8,7 +8,8 @@ import {
   MatTableModule,
   MatInputModule,
   MatDatepickerModule,
-  MatCardModule
+  MatCardModule,
+  MatMenuModule
 } from "@angular/material";
 
 import { RecordsService } from "../records.service";
@@ -57,7 +58,8 @@ describe("RecordsComponent", () => {
         MatDatepickerModule,
         FormsModule,
         ReactiveFormsModule,
-        MatInputModule
+        MatInputModule,
+        MatMenuModule
       ],
       providers: [
         { provide: AngularFirestore },
@@ -94,7 +96,7 @@ describe("RecordsComponent", () => {
     fixture.detectChanges();
 
     expect(component.dataSource.dataLength).toEqual(1);
-    expect(columnTitle.textContent).toEqual("title1");
-    expect(columnTitle.textContent).not.toEqual("title2");
+    expect(columnTitle.textContent).toEqual(" title1 ");
+    expect(columnTitle.textContent).not.toEqual(" title2 ");
   });
 });

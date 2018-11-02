@@ -40,9 +40,9 @@ export class RecordsComponent implements OnChanges {
   }
 
   onViewportChange() {
-    this.displayedColumns = ["title", "amount", "date", "delete"];
+    this.displayedColumns = ["title", "amount", "date"];
     if (this.isHandset) {
-      this.displayedColumns = ["title", "amount", "delete"];
+      this.displayedColumns = ["title", "amount"];
     }
   }
 

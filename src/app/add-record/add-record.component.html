@@ -3,13 +3,10 @@
       #formDirective="ngForm"
       (ngSubmit)="onSubmit(myForm, formDirective)">
   <mat-card class="general-card">
-    <mat-card-header>
-      <mat-card-title>Add new record</mat-card-title>
-    </mat-card-header>
     <mat-card-content>
       <div class="row">
         <div class="col">
-          <mat-form-field class="full-width">
+          <mat-form-field>
             <input matInput
                    id="title-input"
                    placeholder="Title"
@@ -17,7 +14,7 @@
           </mat-form-field>
         </div>
         <div class="col">
-          <mat-form-field class="full-width">
+          <mat-form-field>
             <input matInput
                    id="amount-input"
                    #amount
@@ -27,11 +24,8 @@
           </mat-form-field>
         </div>
       </div>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-raised-button
-              color="primary"
+      <button mat-stroked-button
               type="submit">Submit</button>
-    </mat-card-actions>
+    </mat-card-content>
   </mat-card>
 </form>

@@ -16,21 +16,12 @@
   margin: 5px 0;
 }
 
-.row {
-  display: flex;
-  flex-direction: row;
-}
-
-.col {
-  flex: 1;
-  margin-right: 20px;
-}
-
-.col:last-child {
-  margin-right: 0;
-}
-
 .footer-text {
   margin-top: 15px;
   padding-left: 24px;
+}
+
+.rtl {
+  direction: rtl;
+  text-align: left;
 }

@@ -17,7 +17,7 @@ export class ToolbarComponent {
     private router: Router
   ) {
     breakpointObserver
-      .observe([Breakpoints.HandsetLandscape, Breakpoints.HandsetPortrait])
+      .observe([Breakpoints.HandsetPortrait])
       .subscribe(result => {
         this.isHandset = false;
         if (result.matches) {

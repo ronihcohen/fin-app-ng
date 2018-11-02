@@ -1,27 +1,8 @@
-.full-width {
-  width: 90%;
-}
-
 .general-card {
   min-width: 120px;
   margin: 20px 20px;
 }
 
-.mat-radio-button {
-  display: block;
-  margin: 5px 0;
-}
-
-.row {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-.col {
-  flex: 1;
-}
-
-.col:last-child {
-  margin-right: 0;
+button {
+  width: 100%;
 }

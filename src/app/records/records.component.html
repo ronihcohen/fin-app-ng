@@ -1,17 +1,18 @@
 <mat-card class="general-card">
-    <mat-card-header>
-        <mat-card-title>Current balance for
-            <app-month-picker (handleDateChange)="handleDateChange($event)"></app-month-picker>
-        </mat-card-title>
-    </mat-card-header>
-
     <mat-card-content>
-        <mat-form-field class="full-width">
-            <input matInput
-                   [formControl]="searchValue"
-                   id="search-input"
-                   placeholder="Search">
-        </mat-form-field>
+        <div class="row">
+            <div class="col">
+                <mat-form-field class="full-width">
+                    <input matInput
+                           [formControl]="searchValue"
+                           id="search-input"
+                           placeholder="Search">
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <app-month-picker (handleDateChange)="handleDateChange($event)"></app-month-picker>
+            </div>
+        </div>
         <table mat-table
                class="full-width-table"
                [dataSource]="dataSource"
@@ -21,7 +22,15 @@
                 <th mat-header-cell
                     *matHeaderCellDef>Title</th>
                 <td mat-cell
-                    *matCellDef="let row">{{row.title}}</td>
+                    *matCellDef="let row"
+                    [matMenuTriggerFor]="menu"
+                    [ngClass]={rtl:true}>
+                    {{row.title}}
+                    <mat-menu #menu="matMenu">
+                        <button (click)="handleDeleteClick(row)"
+                                mat-menu-item>Delete</button>
+                    </mat-menu>
+                </td>
             </ng-container>
 
             <ng-container matColumnDef="amount">
@@ -36,18 +45,6 @@
                     *matHeaderCellDef>Date</th>
                 <td mat-cell
                     *matCellDef="let row">{{row.date?.toDate() | date:"dd/MM/yyyy" }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="delete">
-                <th mat-header-cell
-                    *matHeaderCellDef></th>
-                <td mat-cell
-                    *matCellDef="let row">
-                    <a href="javascript:void(0)"
-                       (click)="handleDeleteClick(row)">
-                        <mat-icon>delete</mat-icon>
-                    </a>
-                </td>
             </ng-container>
 
             <tr mat-header-row
