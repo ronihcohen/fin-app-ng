@@ -4,22 +4,7 @@ import { ToolbarComponent } from "./toolbar.component";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { Router } from "@angular/router";
 
-import {
-  MatIconModule,
-  MatButtonModule,
-  MatTableModule,
-  MatPaginatorModule,
-  MatSortModule,
-  MatToolbarModule,
-  MatInputModule,
-  MatDatepickerModule,
-  MatSnackBarModule,
-  MatDialogModule,
-  MatCardModule,
-  MatSelectModule,
-  MatRadioModule,
-  MatMenuModule
-} from "@angular/material";
+import { MatToolbarModule, MatMenuModule } from "@angular/material";
 
 import { of } from "rxjs";
 
@@ -34,22 +19,7 @@ describe("ToolbarComponent", () => {
 
     TestBed.configureTestingModule({
       declarations: [ToolbarComponent],
-      imports: [
-        // MatIconModule,
-        // MatButtonModule,
-        // MatTableModule,
-        // MatPaginatorModule,
-        // MatSortModule,
-        // MatInputModule,
-        // MatCardModule,
-        // MatSelectModule,
-        // MatRadioModule,
-        MatToolbarModule,
-        // MatDatepickerModule,
-        // MatSnackBarModule,
-        // MatDialogModule,
-        MatMenuModule
-      ],
+      imports: [MatToolbarModule, MatMenuModule],
       providers: [
         { provide: AngularFireAuth, useValue: AngularFireAuthStub },
         { provide: Router }
