@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from "@angular/core";
+import { Component, Output, EventEmitter, Input } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { MomentDateAdapter } from "@angular/material-moment-adapter";
 import {
@@ -46,6 +46,8 @@ export class MonthPickerComponent {
   date = new FormControl(_moment());
   @Output()
   handleDateChange = new EventEmitter<Moment>();
+  @Input()
+  isHandset: boolean;
 
   chosenYearHandler(normalizedYear: Moment) {
     const ctrlValue = this.date.value;

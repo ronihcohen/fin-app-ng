@@ -1,7 +1,8 @@
 <mat-card class="general-card">
     <mat-card-header>
         <mat-card-title>Current balance for
-            <app-month-picker (handleDateChange)="handleDateChange($event)"></app-month-picker>
+            <app-month-picker [isHandset]="isHandset"
+                              (handleDateChange)="handleDateChange($event)"></app-month-picker>
         </mat-card-title>
     </mat-card-header>
 

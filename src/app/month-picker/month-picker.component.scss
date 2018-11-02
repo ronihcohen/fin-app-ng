@@ -1,3 +1,6 @@
-.month-picker{
-    width: 110px;
+.month-picker {
+  width: 110px;
+  &.handset {
+    width: 175px;
+  }
 }
