@@ -12,10 +12,15 @@ export interface Record {
   amount: number;
   date: Date;
   familyID: String;
-  id: String;
+  uid: String;
 }
 export interface Doc {
   records: Record[];
+}
+
+export interface NewRecord {
+  title: string;
+  amount: number;
 }
 
 @Injectable({
@@ -45,8 +50,8 @@ export class RecordsService {
     );
   }
 
-  addRecord(record, familyID: String, uid: String) {
-    const newRecord = {
+  addRecord(record: NewRecord, familyID: String, uid: String) {
+    const newRecord: Record = {
       ...record,
       familyID: familyID,
       uid: uid,
