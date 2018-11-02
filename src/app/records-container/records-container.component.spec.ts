@@ -11,7 +11,8 @@ import {
   MatTableModule,
   MatIconModule,
   MatInputModule,
-  MatDatepickerModule
+  MatDatepickerModule,
+  MatMenuModule
 } from "@angular/material";
 
 import { AngularFireAuth } from "@angular/fire/auth";
@@ -42,7 +43,8 @@ describe("RecordsContainerComponent", () => {
         MatTableModule,
         MatIconModule,
         MatInputModule,
-        MatDatepickerModule
+        MatDatepickerModule,
+        MatMenuModule
       ],
       providers: [
         { provide: AngularFireAuth, useValue: AngularFireAuthStub },
