@@ -9,7 +9,8 @@ import {
   MatInputModule,
   MatDatepickerModule,
   MatCardModule,
-  MatMenuModule
+  MatMenuModule,
+  MatSnackBarModule
 } from "@angular/material";
 
 import { RecordsService } from "../records.service";
@@ -59,7 +60,8 @@ describe("RecordsComponent", () => {
         FormsModule,
         ReactiveFormsModule,
         MatInputModule,
-        MatMenuModule
+        MatMenuModule,
+        MatSnackBarModule
       ],
       providers: [
         { provide: AngularFirestore },

@@ -1,5 +1,5 @@
 import { Component, SimpleChanges, Input, OnChanges } from "@angular/core";
-import { MatDialog } from "@angular/material";
+import { MatDialog, MatSnackBar } from "@angular/material";
 import { RecordsDataSource } from "./records-datasource";
 import { RecordsService } from "../records.service";
 import * as _moment from "moment";
@@ -16,6 +16,8 @@ export class RecordsComponent implements OnChanges {
   @Input()
   familyID: string;
   @Input()
+  uid: string;
+  @Input()
   isHandset: boolean;
 
   dataSource: RecordsDataSource;
@@ -24,7 +26,11 @@ export class RecordsComponent implements OnChanges {
 
   searchValue = new FormControl("");
 
-  constructor(private records: RecordsService, public dialog: MatDialog) {}
+  constructor(
+    private records: RecordsService,
+    public dialog: MatDialog,
+    public snackBar: MatSnackBar
+  ) {}
 
   onFamilyIDChange(familyID: String) {
     this.currentDate = _moment().toDate();
@@ -71,6 +77,14 @@ export class RecordsComponent implements OnChanges {
       if (approved) {
         this.records.deleteRecord(row.id);
       }
+    });
+  }
+
+  cloneRecord(row) {
+    const { title, amount } = row;
+    this.records.addRecord({ title, amount }, this.familyID, this.uid);
+    this.snackBar.open("Your record was cloned successfully.", null, {
+      duration: 1500
     });
   }
 

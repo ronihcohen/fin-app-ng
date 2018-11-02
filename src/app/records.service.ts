@@ -10,7 +10,6 @@ import { Moment } from "moment";
 export interface Record {
   title: string;
   amount: number;
-  category: string;
   date: Date;
   familyID: String;
   id: String;
@@ -46,7 +45,7 @@ export class RecordsService {
     );
   }
 
-  addRecord(record: Record, familyID: String, uid: String) {
+  addRecord(record, familyID: String, uid: String) {
     const newRecord = {
       ...record,
       familyID: familyID,
