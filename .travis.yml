@@ -4,7 +4,7 @@ sudo: required
 language: node_js
 node_js:
   - "8"
-  
+
 addons:
   apt:
     sources:
@@ -14,10 +14,13 @@ addons:
 
 cache:
   directories:
-     - ./node_modules
+    - ./node_modules
 
 install:
   - npm install
 
 script:
   - npm run test -- --watch=false --browsers=ChromeHeadless
+  - npm install codecov -g
+after_success:
+  - codecov
