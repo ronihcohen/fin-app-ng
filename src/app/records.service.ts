@@ -11,8 +11,8 @@ export interface Record {
   title: string;
   amount: number;
   date: Date;
-  familyID: String;
-  uid: String;
+  familyID: string;
+  uid: string;
 }
 export interface Doc {
   records: Record[];
@@ -50,7 +50,7 @@ export class RecordsService {
     );
   }
 
-  addRecord(record: NewRecord, familyID: String, uid: String) {
+  addRecord(record: NewRecord, familyID: string, uid: string) {
     const newRecord: Record = {
       ...record,
       familyID: familyID,
