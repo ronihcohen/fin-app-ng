@@ -20,9 +20,9 @@ export class AddRecordComponent {
     public snackBar: MatSnackBar
   ) {}
   @Input()
-  familyID: String;
+  familyID: string;
   @Input()
-  uid: String;
+  uid: string;
 
   onSubmit(formData: any, formDirective: FormGroupDirective): void {
     if (this.recordForm.valid) {
