@@ -7,36 +7,39 @@ import { of } from "rxjs";
 
 const date = new Date();
 
+const recordWithoutID = {
+  title: "record",
+  amount: 1,
+  date: date,
+  familyID: "record-fid",
+  uid: "record-uid"
+};
+
+export const AngularFirestoreMock = {
+  collection: (string, cb) => ({
+    cb: cb
+      ? cb({
+          orderBy: () => ({
+            where: () => ({ where: () => ({ where: () => {} }) })
+          })
+        })
+      : null,
+    add: () => {},
+    snapshotChanges: () =>
+      of([
+        {
+          payload: {
+            doc: { id: "record-id", data: () => recordWithoutID }
+          }
+        }
+      ]),
+    doc: () => ({ set: () => {} })
+  }),
+  doc: () => ({ delete: () => {} })
+};
+
 describe("RecordsService", () => {
   beforeEach(() => {
-    const recordWithoutID = {
-      title: "record",
-      amount: 1,
-      date: date,
-      familyID: "record-fid",
-      uid: "record-uid"
-    };
-    const AngularFirestoreMock = {
-      collection: (string, cb) => ({
-        cb: cb
-          ? cb({
-              orderBy: () => ({
-                where: () => ({ where: () => ({ where: () => {} }) })
-              })
-            })
-          : null,
-        add: () => {},
-        snapshotChanges: () =>
-          of([
-            {
-              payload: {
-                doc: { id: "record-id", data: () => recordWithoutID }
-              }
-            }
-          ])
-      }),
-      doc: () => ({ delete: () => {} })
-    };
     TestBed.configureTestingModule({
       providers: [{ provide: AngularFirestore, useValue: AngularFirestoreMock }]
     });
