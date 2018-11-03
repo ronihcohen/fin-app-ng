@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
+import { By } from "@angular/platform-browser";
 
 import { MonthPickerComponent } from "./month-picker.component";
 import {
@@ -8,6 +9,8 @@ import {
   MatFormFieldModule,
   MatInputModule
 } from "@angular/material";
+
+import * as _moment from "moment";
 
 describe("MonthPickerComponent", () => {
   let component: MonthPickerComponent;
@@ -35,5 +38,9 @@ describe("MonthPickerComponent", () => {
 
   it("should create", () => {
     expect(component).toBeTruthy();
+    component.chosenYearHandler(_moment());
+    const datepicker = fixture.debugElement.query(By.css("mat-datepicker"))
+      .context;
+    component.chosenMonthHandler(_moment(), datepicker);
   });
 });
