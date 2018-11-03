@@ -17,7 +17,15 @@ describe("RecordsService", () => {
       uid: "record-uid"
     };
     const AngularFirestoreMock = {
-      collection: () => ({
+      collection: (string, cb) => ({
+        cb: cb
+          ? cb({
+              orderBy: () => ({
+                where: () => ({ where: () => ({ where: () => {} }) })
+              })
+            })
+          : null,
+        add: () => {},
         snapshotChanges: () =>
           of([
             {
@@ -26,7 +34,8 @@ describe("RecordsService", () => {
               }
             }
           ])
-      })
+      }),
+      doc: () => ({ delete: () => {} })
     };
     TestBed.configureTestingModule({
       providers: [{ provide: AngularFirestore, useValue: AngularFirestoreMock }]
@@ -48,5 +57,21 @@ describe("RecordsService", () => {
     service
       .getRecords("family-uid", _moment())
       .subscribe(result => expect(result).toEqual([record]));
+  });
+
+  it("should add new record", () => {
+    const service: RecordsService = TestBed.get(RecordsService);
+
+    const newRecord = {
+      title: "record",
+      amount: 1
+    };
+
+    service.addRecord(newRecord, "record-fid", "uid");
+  });
+
+  it("should delete record", () => {
+    const service: RecordsService = TestBed.get(RecordsService);
+    service.deleteRecord("id");
   });
 });
