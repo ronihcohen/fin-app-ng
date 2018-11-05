@@ -6,6 +6,7 @@ import { MonthPickerComponent } from "../month-picker/month-picker.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FamilyService } from "../family.service";
+import { of } from "rxjs";
 
 import {
   MatCardModule,
@@ -20,18 +21,24 @@ import {
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { BreakpointObserver } from "@angular/cdk/layout";
-import { of } from "rxjs";
 
 describe("RecordsContainerComponent", () => {
   let component: RecordsContainerComponent;
   let fixture: ComponentFixture<RecordsContainerComponent>;
 
   beforeEach(() => {
-    const AngularFireAuthStub = {
-      user: of(true)
+    const bool$ = of(false, true, false, true);
+    const AngularFireAuthStub = { user: bool$ };
+    const BreakpointObserverMock = {
+      observe: () =>
+        of(
+          { matches: false },
+          { matches: true },
+          { matches: false },
+          { matches: true }
+        )
     };
-    const BreakpointObserverMock = { observe: () => of({ matches: true }) };
-    const FamilyServiceMock = { getUserDetails: () => of(false) };
+    const FamilyServiceMock = { getUserDetails: () => bool$ };
 
     @Component({ selector: "app-add-record", template: "" })
     class AddRecordsComponent {
@@ -79,42 +86,9 @@ describe("RecordsContainerComponent", () => {
     }).compileComponents();
   });
 
-  it("should compile with user", () => {
+  it("should compile", () => {
     fixture = TestBed.createComponent(RecordsContainerComponent);
     component = fixture.componentInstance;
-    component.userDetailsSubscription = of({ familyID: "fid" }).subscribe(
-      () => {}
-    );
-    component.familyID = "fid";
-    fixture.detectChanges();
-    expect(component).toBeTruthy();
-  });
-
-  it("should compile with familyID", () => {
-    TestBed.overrideProvider(FamilyService, {
-      useValue: { getUserDetails: () => of(true) }
-    });
-    fixture = TestBed.createComponent(RecordsContainerComponent);
-    component = fixture.componentInstance;
-    component.userDetailsSubscription = of({ familyID: "fid" }).subscribe(
-      () => {}
-    );
-    component.familyID = "fid";
-    fixture.detectChanges();
-    expect(component).toBeTruthy();
-  });
-
-  it("should compile without user", () => {
-    TestBed.overrideProvider(AngularFireAuth, {
-      useValue: {
-        user: of(false)
-      }
-    });
-    fixture = TestBed.createComponent(RecordsContainerComponent);
-    component = fixture.componentInstance;
-    component.userDetailsSubscription = of({ familyID: "fid" }).subscribe(
-      () => {}
-    );
     component.familyID = "fid";
     fixture.detectChanges();
     expect(component).toBeTruthy();
