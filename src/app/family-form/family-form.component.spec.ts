@@ -22,17 +22,18 @@ import { of } from "rxjs";
 describe("FamilyFormComponent", () => {
   let component: FamilyFormComponent;
   let fixture: ComponentFixture<FamilyFormComponent>;
-
-  const FamilyServiceMock = jasmine.createSpyObj("FamilyService", [
-    "updateFamilyID"
-  ]);
-  FamilyServiceMock.updateFamilyID.and.returnValue(
-    new Promise(resolve => resolve())
-  );
+  let FamilyServiceMock;
 
   beforeEach(async(() => {
+    FamilyServiceMock = jasmine.createSpyObj("FamilyService", [
+      "updateFamilyID"
+    ]);
+    FamilyServiceMock.updateFamilyID.and.returnValue(
+      new Promise(resolve => resolve())
+    );
+
     const AngularFireAuthStub = {
-      user: of({ uid: "mock-uid" })
+      user: of(false, { uid: "mock-uid" })
     };
 
     TestBed.configureTestingModule({
@@ -63,7 +64,7 @@ describe("FamilyFormComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should compile", () => {
+  it("should submit if valid", () => {
     const familyFormElement: HTMLElement = fixture.nativeElement;
     const button = familyFormElement.querySelector("button");
     const familySecretInput: HTMLInputElement = familyFormElement.querySelector(
@@ -74,5 +75,18 @@ describe("FamilyFormComponent", () => {
     fixture.detectChanges();
     button.click();
     expect(FamilyServiceMock.updateFamilyID).toHaveBeenCalled();
+  });
+
+  it("should not submit if not valid", () => {
+    const familyFormElement: HTMLElement = fixture.nativeElement;
+    const button = familyFormElement.querySelector("button");
+    const familySecretInput: HTMLInputElement = familyFormElement.querySelector(
+      "#family-secret"
+    );
+    familySecretInput.value = "1q2w";
+    familySecretInput.dispatchEvent(new Event("input"));
+    fixture.detectChanges();
+    button.click();
+    expect(FamilyServiceMock.updateFamilyID).not.toHaveBeenCalled();
   });
 });
