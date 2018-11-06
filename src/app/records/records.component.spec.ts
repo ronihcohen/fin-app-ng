@@ -10,8 +10,10 @@ import {
   MatDatepickerModule,
   MatCardModule,
   MatMenuModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatDialog
 } from "@angular/material";
+import * as _moment from "moment";
 
 import { RecordsService } from "../records.service";
 
@@ -23,10 +25,13 @@ import { of } from "rxjs";
 describe("RecordsComponent", () => {
   let component: RecordsComponent;
   let fixture: ComponentFixture<RecordsComponent>;
+  let RecordsServiceMock;
 
   beforeEach(async(() => {
-    const RecordsServiceMock = jasmine.createSpyObj("RecordsService", [
-      "getRecords"
+    RecordsServiceMock = jasmine.createSpyObj("RecordsService", [
+      "getRecords",
+      "deleteRecord",
+      "addRecord"
     ]);
     RecordsServiceMock.getRecords.and.returnValue(
       of([
@@ -49,6 +54,14 @@ describe("RecordsComponent", () => {
       ])
     );
 
+    class MatDialogMock {
+      open() {
+        return {
+          afterClosed: () => of(true, false)
+        };
+      }
+    }
+
     TestBed.configureTestingModule({
       declarations: [RecordsComponent, MonthPickerComponent],
       imports: [
@@ -65,7 +78,11 @@ describe("RecordsComponent", () => {
       ],
       providers: [
         { provide: AngularFirestore },
-        { provide: RecordsService, useValue: RecordsServiceMock }
+        { provide: RecordsService, useValue: RecordsServiceMock },
+        {
+          provide: MatDialog,
+          useClass: MatDialogMock
+        }
       ]
     }).compileComponents();
   }));
@@ -78,10 +95,10 @@ describe("RecordsComponent", () => {
 
   it("should filter records by search value", () => {
     expect(component).toBeTruthy();
-    component.familyID = "f-id";
     component.displayedColumns = ["title", "amount"];
+    component.handleDateChange(_moment());
     component.ngOnChanges({
-      familyID: new SimpleChange(null, component.familyID, null)
+      familyID: new SimpleChange("fi-id2", "fi-id1", null)
     });
     fixture.detectChanges();
 
@@ -100,5 +117,23 @@ describe("RecordsComponent", () => {
     expect(component.dataSource.dataLength).toEqual(1);
     expect(columnTitle.textContent).toEqual(" title1 ");
     expect(columnTitle.textContent).not.toEqual(" title2 ");
+  });
+
+  it("should handle delete record", () => {
+    component.handleDeleteClick({ id: "id" });
+    expect(RecordsServiceMock.deleteRecord).toHaveBeenCalled();
+  });
+
+  it("should clone record", () => {
+    component.cloneRecord({ title: "title", amount: 5 });
+    expect(RecordsServiceMock.addRecord).toHaveBeenCalled();
+  });
+
+  it("should handle isHandset false", () => {
+    component.ngOnChanges({ isHandset: new SimpleChange(true, false, null) });
+  });
+
+  it("should handle isHandset true", () => {
+    component.ngOnChanges({ isHandset: new SimpleChange(false, true, null) });
   });
 });

@@ -45,9 +45,9 @@ export class RecordsComponent implements OnChanges {
     );
   }
 
-  onViewportChange() {
+  onViewportChange(isHandset) {
     this.displayedColumns = ["title", "amount", "date"];
-    if (this.isHandset) {
+    if (isHandset) {
       this.displayedColumns = ["title", "amount"];
     }
   }
@@ -66,7 +66,7 @@ export class RecordsComponent implements OnChanges {
       viewPortChanges &&
       viewPortChanges.currentValue !== viewPortChanges.previousValue
     ) {
-      this.onViewportChange();
+      this.onViewportChange(viewPortChanges.currentValue);
     }
   }
 

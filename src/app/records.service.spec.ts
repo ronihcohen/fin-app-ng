@@ -35,7 +35,7 @@ export const AngularFirestoreMock = {
       ]),
     doc: () => ({ set: () => {} })
   }),
-  doc: () => ({ delete: () => {} })
+  doc: () => ({ delete: () => {}, valueChanges: () => of(true, false) })
 };
 
 describe("RecordsService", () => {

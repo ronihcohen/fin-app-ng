@@ -1,10 +1,12 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { Component, Input } from "@angular/core";
 
 import { RecordsContainerComponent } from "./records-container.component";
-import { RecordsComponent } from "../records/records.component";
-import { AddRecordComponent } from "../add-record/add-record.component";
 import { MonthPickerComponent } from "../month-picker/month-picker.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { FamilyService } from "../family.service";
+import { of } from "rxjs";
 
 import {
   MatCardModule,
@@ -12,28 +14,55 @@ import {
   MatIconModule,
   MatInputModule,
   MatDatepickerModule,
-  MatMenuModule
+  MatMenuModule,
+  MatSnackBarModule
 } from "@angular/material";
 
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore } from "@angular/fire/firestore";
-
-import { of } from "rxjs";
+import { BreakpointObserver } from "@angular/cdk/layout";
 
 describe("RecordsContainerComponent", () => {
   let component: RecordsContainerComponent;
   let fixture: ComponentFixture<RecordsContainerComponent>;
 
-  beforeEach(async(() => {
-    const AngularFireAuthStub = {
-      user: of({ uid: "mock-uid" })
+  beforeEach(() => {
+    const bool$ = of(false, true, false, true);
+    const AngularFireAuthStub = { user: bool$ };
+    const BreakpointObserverMock = {
+      observe: () =>
+        of(
+          { matches: false },
+          { matches: true },
+          { matches: false },
+          { matches: true }
+        )
     };
+    const FamilyServiceMock = { getUserDetails: () => bool$ };
+
+    @Component({ selector: "app-add-record", template: "" })
+    class AddRecordsComponent {
+      @Input()
+      familyID: string;
+      @Input()
+      uid: string;
+    }
+
+    @Component({ selector: "app-records", template: "" })
+    class RecordsComponent {
+      @Input()
+      familyID: string;
+      @Input()
+      uid: string;
+      @Input()
+      isHandset: boolean;
+    }
 
     TestBed.configureTestingModule({
       declarations: [
         RecordsContainerComponent,
         RecordsComponent,
-        AddRecordComponent,
+        AddRecordsComponent,
         MonthPickerComponent
       ],
       imports: [
@@ -44,22 +73,24 @@ describe("RecordsContainerComponent", () => {
         MatIconModule,
         MatInputModule,
         MatDatepickerModule,
-        MatMenuModule
+        MatMenuModule,
+        MatSnackBarModule,
+        BrowserAnimationsModule
       ],
       providers: [
         { provide: AngularFireAuth, useValue: AngularFireAuthStub },
-        { provide: AngularFirestore }
+        { provide: AngularFirestore },
+        { provide: BreakpointObserver, useValue: BreakpointObserverMock },
+        { provide: FamilyService, useValue: FamilyServiceMock }
       ]
     }).compileComponents();
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(RecordsContainerComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it("should compile", () => {
+    fixture = TestBed.createComponent(RecordsContainerComponent);
+    component = fixture.componentInstance;
+    component.familyID = "fid";
+    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 });
