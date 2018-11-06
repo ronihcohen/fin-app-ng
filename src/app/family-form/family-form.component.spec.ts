@@ -6,7 +6,8 @@ import {
   MatCardModule,
   MatInputModule,
   MatRadioModule,
-  MatSelectModule
+  MatSelectModule,
+  MatSnackBarModule
 } from "@angular/material";
 
 import { FamilyFormComponent } from "./family-form.component";
@@ -21,10 +22,18 @@ import { of } from "rxjs";
 describe("FamilyFormComponent", () => {
   let component: FamilyFormComponent;
   let fixture: ComponentFixture<FamilyFormComponent>;
+  let FamilyServiceMock;
 
   beforeEach(async(() => {
+    FamilyServiceMock = jasmine.createSpyObj("FamilyService", [
+      "updateFamilyID"
+    ]);
+    FamilyServiceMock.updateFamilyID.and.returnValue(
+      new Promise(resolve => resolve())
+    );
+
     const AngularFireAuthStub = {
-      user: of({ uid: "mock-uid" })
+      user: of(false, { uid: "mock-uid" })
     };
 
     TestBed.configureTestingModule({
@@ -36,11 +45,12 @@ describe("FamilyFormComponent", () => {
         MatCardModule,
         MatInputModule,
         MatRadioModule,
-        MatSelectModule
+        MatSelectModule,
+        MatSnackBarModule
       ],
       providers: [
-        { provide: Router },
-        { provide: FamilyService },
+        { provide: Router, useValue: { navigate: () => {} } },
+        { provide: FamilyService, useValue: FamilyServiceMock },
         { provide: AngularFireAuth, useValue: AngularFireAuthStub },
         FormBuilder,
         MatSnackBar
@@ -54,7 +64,29 @@ describe("FamilyFormComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should compile", () => {
-    expect(component).toBeTruthy();
+  it("should submit if valid", () => {
+    const familyFormElement: HTMLElement = fixture.nativeElement;
+    const button = familyFormElement.querySelector("button");
+    const familySecretInput: HTMLInputElement = familyFormElement.querySelector(
+      "#family-secret"
+    );
+    familySecretInput.value = "1q2w3e4r5t6y7u8i";
+    familySecretInput.dispatchEvent(new Event("input"));
+    fixture.detectChanges();
+    button.click();
+    expect(FamilyServiceMock.updateFamilyID).toHaveBeenCalled();
+  });
+
+  it("should not submit if not valid", () => {
+    const familyFormElement: HTMLElement = fixture.nativeElement;
+    const button = familyFormElement.querySelector("button");
+    const familySecretInput: HTMLInputElement = familyFormElement.querySelector(
+      "#family-secret"
+    );
+    familySecretInput.value = "1q2w";
+    familySecretInput.dispatchEvent(new Event("input"));
+    fixture.detectChanges();
+    button.click();
+    expect(FamilyServiceMock.updateFamilyID).not.toHaveBeenCalled();
   });
 });

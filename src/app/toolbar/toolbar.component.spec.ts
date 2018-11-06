@@ -5,6 +5,7 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { Router } from "@angular/router";
 
 import { MatToolbarModule, MatMenuModule } from "@angular/material";
+import { BreakpointObserver } from "@angular/cdk/layout";
 
 import { of } from "rxjs";
 
@@ -13,8 +14,19 @@ describe("ToolbarComponent", () => {
   let fixture: ComponentFixture<ToolbarComponent>;
 
   beforeEach(async(() => {
+    const BreakpointObserverMock = {
+      observe: () =>
+        of(
+          { matches: false },
+          { matches: true },
+          { matches: false },
+          { matches: true }
+        )
+    };
+
     const AngularFireAuthStub = {
-      user: of({ uid: "mock-uid" })
+      auth: { signInWithPopup: () => {}, signOut: () => {} },
+      user: of(false, { uid: "mock-uid" })
     };
 
     TestBed.configureTestingModule({
@@ -22,7 +34,8 @@ describe("ToolbarComponent", () => {
       imports: [MatToolbarModule, MatMenuModule],
       providers: [
         { provide: AngularFireAuth, useValue: AngularFireAuthStub },
-        { provide: Router }
+        { provide: Router, useValue: { navigate: () => {} } },
+        { provide: BreakpointObserver, useValue: BreakpointObserverMock }
       ]
     }).compileComponents();
   }));
@@ -33,7 +46,9 @@ describe("ToolbarComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it("should handle login/logout", () => {
     expect(component).toBeTruthy();
+    component.login();
+    component.logout();
   });
 });
