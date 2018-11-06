@@ -6,7 +6,8 @@ import {
   MatCardModule,
   MatInputModule,
   MatRadioModule,
-  MatSelectModule
+  MatSelectModule,
+  MatSnackBarModule
 } from "@angular/material";
 
 import { FamilyFormComponent } from "./family-form.component";
@@ -22,6 +23,13 @@ describe("FamilyFormComponent", () => {
   let component: FamilyFormComponent;
   let fixture: ComponentFixture<FamilyFormComponent>;
 
+  const FamilyServiceMock = jasmine.createSpyObj("FamilyService", [
+    "updateFamilyID"
+  ]);
+  FamilyServiceMock.updateFamilyID.and.returnValue(
+    new Promise(resolve => resolve())
+  );
+
   beforeEach(async(() => {
     const AngularFireAuthStub = {
       user: of({ uid: "mock-uid" })
@@ -36,11 +44,12 @@ describe("FamilyFormComponent", () => {
         MatCardModule,
         MatInputModule,
         MatRadioModule,
-        MatSelectModule
+        MatSelectModule,
+        MatSnackBarModule
       ],
       providers: [
-        { provide: Router },
-        { provide: FamilyService },
+        { provide: Router, useValue: { navigate: () => {} } },
+        { provide: FamilyService, useValue: FamilyServiceMock },
         { provide: AngularFireAuth, useValue: AngularFireAuthStub },
         FormBuilder,
         MatSnackBar
@@ -55,6 +64,15 @@ describe("FamilyFormComponent", () => {
   });
 
   it("should compile", () => {
-    expect(component).toBeTruthy();
+    const familyFormElement: HTMLElement = fixture.nativeElement;
+    const button = familyFormElement.querySelector("button");
+    const familySecretInput: HTMLInputElement = familyFormElement.querySelector(
+      "#family-secret"
+    );
+    familySecretInput.value = "1q2w3e4r5t6y7u8i";
+    familySecretInput.dispatchEvent(new Event("input"));
+    fixture.detectChanges();
+    button.click();
+    expect(FamilyServiceMock.updateFamilyID).toHaveBeenCalled();
   });
 });
