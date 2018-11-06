@@ -1,8 +1,7 @@
 import { DataSource } from "@angular/cdk/collections";
-import { Observable } from "rxjs";
+import { Observable, Subscription, of } from "rxjs";
 import { RecordsService, Record } from "../records.service";
 import { Moment } from "moment";
-import { Subscription } from "rxjs";
 import { combineLatest, startWith } from "rxjs/operators";
 
 export class RecordsDataSource extends DataSource<Record> {
@@ -13,8 +12,8 @@ export class RecordsDataSource extends DataSource<Record> {
   constructor(
     private date: Moment,
     private records: RecordsService,
-    private familyID: String,
-    private searchChanges$: Observable<string>
+    private familyID: String | null,
+    private searchChanges$: Observable<string> | null
   ) {
     super();
   }
@@ -25,24 +24,28 @@ export class RecordsDataSource extends DataSource<Record> {
    * @returns A stream of the items to be rendered.
    */
   connect(): Observable<Record[]> {
-    const records$ = this.records.getRecords(this.familyID, this.date);
+    let records$: Observable<Record[]>;
+    let combinedWithSearch$: Observable<Record[]>;
 
-    const combinedWithSearch$ = this.searchChanges$.pipe(
-      startWith(""),
-      combineLatest(records$, (searchValue, records) => {
-        return records.filter(record => record.title.includes(searchValue));
-      })
-    );
+    records$ = of([]);
+    if (this.familyID) {
+      records$ = this.records.getRecords(this.familyID, this.date);
+    }
+    combinedWithSearch$ = records$;
 
-    this.recordsSubscription = combinedWithSearch$.subscribe(
-      data => {
-        this.dataLength = data.length;
-        this.totalAmount = data.reduce((acc, cur) => acc + cur.amount, 0);
-      },
-      err => {
-        console.log("RecordsDataSource: ", this.familyID, this.date, err);
-      }
-    );
+    if (this.searchChanges$) {
+      combinedWithSearch$ = this.searchChanges$.pipe(
+        startWith(""),
+        combineLatest(records$, (searchValue, records) => {
+          return records.filter(record => record.title.includes(searchValue));
+        })
+      );
+    }
+
+    this.recordsSubscription = combinedWithSearch$.subscribe(data => {
+      this.dataLength = data.length;
+      this.totalAmount = data.reduce((acc, cur) => acc + cur.amount, 0);
+    });
 
     return combinedWithSearch$;
   }

@@ -20,7 +20,12 @@ export class RecordsComponent implements OnChanges {
   @Input()
   isHandset: boolean;
 
-  dataSource: RecordsDataSource;
+  dataSource: RecordsDataSource = new RecordsDataSource(
+    _moment(),
+    this.records,
+    null,
+    null
+  );
   currentDate: Date;
   displayedColumns: Array<string>;
 
@@ -34,9 +39,7 @@ export class RecordsComponent implements OnChanges {
 
   onFamilyIDChange(familyID: String) {
     this.currentDate = _moment().toDate();
-    if (this.dataSource) {
-      this.dataSource.disconnect();
-    }
+    this.dataSource.disconnect();
     this.dataSource = new RecordsDataSource(
       _moment(),
       this.records,
