@@ -10,6 +10,7 @@ import { MatSnackBar } from "@angular/material";
 })
 export class AddRecordComponent {
   recordForm = this.fb.group({
+    businessName: null,
     title: [null, Validators.required],
     amount: [null, Validators.compose([Validators.required, Validators.min(0)])]
   });
