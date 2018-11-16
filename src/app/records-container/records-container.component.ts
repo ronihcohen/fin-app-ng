@@ -1,8 +1,8 @@
 import { Component } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/auth";
-import { FamilyService } from "../family.service";
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import { Subscription } from "rxjs";
+import { UserDetailsService } from "../user-details.service";
 
 @Component({
   selector: "app-records-container",
@@ -10,15 +10,21 @@ import { Subscription } from "rxjs";
   styleUrls: ["./records-container.component.scss"]
 })
 export class RecordsContainerComponent {
-  familyID: String;
-  isHandset: Boolean;
+  familyID: string;
+  uid: string;
+  isHandset: boolean;
   userDetailsSubscription: Subscription;
 
   constructor(
     public afAuth: AngularFireAuth,
-    public familyService: FamilyService,
-    breakpointObserver: BreakpointObserver
+    breakpointObserver: BreakpointObserver,
+    private userDetailsService: UserDetailsService
   ) {
+    this.userDetailsService.getUserDetails().subscribe(userDetails => {
+      this.familyID = userDetails.familyID;
+      this.uid = userDetails.uid;
+    });
+
     breakpointObserver
       .observe([Breakpoints.HandsetPortrait])
       .subscribe(result => {
@@ -27,23 +33,5 @@ export class RecordsContainerComponent {
           this.isHandset = true;
         }
       });
-
-    this.afAuth.user.subscribe(user => {
-      if (!user) {
-        if (this.userDetailsSubscription) {
-          this.userDetailsSubscription.unsubscribe();
-        }
-        return;
-      }
-      this.familyID = null;
-      this.userDetailsSubscription = this.familyService
-        .getUserDetails(user.uid)
-        .subscribe(userDetails => {
-          if (!userDetails) {
-            return (this.familyID = user.uid);
-          }
-          this.familyID = userDetails.familyID;
-        });
-    });
   }
 }
