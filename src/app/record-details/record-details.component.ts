@@ -9,7 +9,7 @@ import { Observable, of } from "rxjs";
   styleUrls: ["./record-details.component.scss"]
 })
 export class RecordDetailsComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(private route: ActivatedRoute) {}
   record$: Observable<any>;
   ngOnInit() {
     this.route.paramMap.subscribe((params: ParamMap) =>

@@ -5,7 +5,8 @@ import { RecordDetailsComponent } from "./record-details/record-details.componen
 
 const routes: Routes = [
   { path: "record/:id", component: RecordDetailsComponent },
-  { path: "**", component: RecordsContainerComponent }
+  { path: "", component: RecordsContainerComponent },
+  { path: "**", component: RecordsContainerComponent, redirectTo: "" }
 ];
 
 @NgModule({
