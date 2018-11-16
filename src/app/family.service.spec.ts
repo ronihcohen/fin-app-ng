@@ -14,6 +14,5 @@ describe("FamilyService", () => {
   it("should be created", () => {
     const service: FamilyService = TestBed.get(FamilyService);
     service.updateFamilyID("fid", "uid");
-    service.getUserDetails("uid");
   });
 });

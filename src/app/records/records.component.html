@@ -33,7 +33,7 @@
         >
           {{ row.title }}
           <mat-menu #menu="matMenu">
-            <button [routerLink]="'record/' + row.id" mat-menu-item>
+            <button [routerLink]="['/record', row.id]" mat-menu-item>
               Record details
             </button>
             <button (click)="cloneRecord(row)" mat-menu-item>

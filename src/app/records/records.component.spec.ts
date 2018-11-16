@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
+import { RouterModule } from "@angular/router";
 
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SimpleChange } from "@angular/core";
@@ -14,6 +15,8 @@ import {
   MatDialog
 } from "@angular/material";
 import * as _moment from "moment";
+
+import { Router } from "@angular/router";
 
 import { RecordsService } from "../records.service";
 
@@ -74,10 +77,12 @@ describe("RecordsComponent", () => {
         ReactiveFormsModule,
         MatInputModule,
         MatMenuModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        RouterModule
       ],
       providers: [
         { provide: AngularFirestore },
+        { provide: Router },
         { provide: RecordsService, useValue: RecordsServiceMock },
         {
           provide: MatDialog,
