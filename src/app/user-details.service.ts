@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { switchMap, map } from "rxjs/operators";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 
 export interface UserDetails {
   familyID: string;
@@ -18,7 +18,7 @@ export class UserDetailsService {
   userDetails$: Observable<UserDetails> = this.afAuth.user.pipe(
     switchMap(user => {
       if (!user) {
-        return null;
+        return of();
       }
       this.uid = user.uid;
       return this.afs.doc<UserDetails>(`users/${this.uid}`).valueChanges();
