@@ -17,6 +17,9 @@ export class UserDetailsService {
   uid: string;
   userDetails$: Observable<UserDetails> = this.afAuth.user.pipe(
     switchMap(user => {
+      if (!user) {
+        return null;
+      }
       this.uid = user.uid;
       return this.afs.doc<UserDetails>(`users/${this.uid}`).valueChanges();
     }),
