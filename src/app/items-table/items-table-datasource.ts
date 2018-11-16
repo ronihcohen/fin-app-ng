@@ -20,6 +20,8 @@ export class ItemsTableDataSource extends DataSource<ItemsTableItem> {
   data: ItemsTableItem[] = [];
   items$: Observable<ItemsTableItem[]>;
   itemsSubscription: Subscription;
+  recordSubscription: Subscription;
+  record: ItemsTableItem;
 
   constructor(
     private paginator: MatPaginator,
@@ -42,7 +44,11 @@ export class ItemsTableDataSource extends DataSource<ItemsTableItem> {
     this.items$ = this.paramMap.pipe(
       switchMap(params => {
         const id = params.get("id");
-        const recordDoc = this.afs.doc("records/" + id);
+        const recordDoc = this.afs.doc<ItemsTableItem>("records/" + id);
+        this.recordSubscription = recordDoc
+          .valueChanges()
+          .subscribe(record => (this.record = record));
+
         return recordDoc.collection<ItemsTableItem>("items").valueChanges();
       })
     );
@@ -74,6 +80,10 @@ export class ItemsTableDataSource extends DataSource<ItemsTableItem> {
   disconnect() {
     if (this.itemsSubscription) {
       this.itemsSubscription.unsubscribe();
+    }
+
+    if (this.recordSubscription) {
+      this.recordSubscription.unsubscribe();
     }
   }
 
