@@ -1,42 +1,31 @@
-<form
-  [formGroup]="recordForm"
-  novalidate
-  #formDirective="ngForm"
-  (ngSubmit)="onSubmit(myForm, formDirective)"
->
+<form [formGroup]="recordForm"
+      novalidate
+      #formDirective="ngForm"
+      (ngSubmit)="onSubmit(myForm, formDirective)">
   <mat-card class="general-card">
     <mat-card-content>
-      <div class="form-container">
-        <mat-form-field>
-          <input
-            matInput
-            id="title-input"
-            placeholder="Title"
-            formControlName="title"
-          />
-        </mat-form-field>
-
-        <mat-form-field>
-          <input
-            matInput
-            id="amount-input"
-            #amount
-            placeholder="Amount"
-            type="number"
-            formControlName="amount"
-          />
-        </mat-form-field>
-
-        <mat-form-field>
-          <input
-            matInput
-            id="business-name"
-            placeholder="Business name"
-            formControlName="businessName"
-          />
-        </mat-form-field>
-        <button mat-stroked-button color="primary" type="submit">Submit</button>
+      <div class="row">
+        <div class="col">
+          <mat-form-field>
+            <input matInput
+                   id="title-input"
+                   placeholder="Title"
+                   formControlName="title">
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <input matInput
+                   id="amount-input"
+                   #amount
+                   placeholder="Amount"
+                   type="number"
+                   formControlName="amount">
+          </mat-form-field>
+        </div>
       </div>
+      <button mat-stroked-button
+              type="submit">Submit</button>
     </mat-card-content>
   </mat-card>
 </form>
