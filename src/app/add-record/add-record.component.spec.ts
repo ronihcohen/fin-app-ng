@@ -14,17 +14,27 @@ import { AddRecordComponent } from "./add-record.component";
 import { RecordsService } from "../records.service";
 import { MatSnackBar } from "@angular/material";
 import { FormBuilder } from "@angular/forms";
+import { UserDetailsService } from "../user-details.service";
+import { of } from "rxjs";
 
 describe("AddRecordComponent", () => {
   let component: AddRecordComponent;
   let fixture: ComponentFixture<AddRecordComponent>;
   let addRecordSpy;
+  let getUserDetailsSpy;
 
   beforeEach(async(() => {
     const RecordsServiceMock = jasmine.createSpyObj("RecordsService", [
       "addRecord"
     ]);
     addRecordSpy = RecordsServiceMock.addRecord.and.returnValue(true);
+
+    const UserDetailsServiceMock = jasmine.createSpyObj("UserDetailsService", [
+      "getUserDetails"
+    ]);
+    getUserDetailsSpy = UserDetailsServiceMock.getUserDetails.and.returnValue(
+      of()
+    );
 
     TestBed.configureTestingModule({
       declarations: [AddRecordComponent],
@@ -40,6 +50,7 @@ describe("AddRecordComponent", () => {
       ],
       providers: [
         { provide: RecordsService, useValue: RecordsServiceMock },
+        { provide: UserDetailsService, useValue: UserDetailsServiceMock },
         FormBuilder,
         MatSnackBar
       ]

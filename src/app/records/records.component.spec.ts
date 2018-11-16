@@ -23,6 +23,8 @@ import { RecordsService } from "../records.service";
 import { RecordsComponent } from "./records.component";
 import { MonthPickerComponent } from "../month-picker/month-picker.component";
 import { AngularFirestore } from "@angular/fire/firestore";
+import { ActivatedRoute } from "@angular/router";
+
 import { of } from "rxjs";
 
 describe("RecordsComponent", () => {
@@ -87,7 +89,8 @@ describe("RecordsComponent", () => {
         {
           provide: MatDialog,
           useClass: MatDialogMock
-        }
+        },
+        { provide: ActivatedRoute }
       ]
     }).compileComponents();
   }));

@@ -8,6 +8,8 @@ import { MonthPickerComponent } from "./month-picker/month-picker.component";
 import { DeleteDialogComponent } from "./delete-dialog/delete-dialog.component";
 import { ToolbarComponent } from "./toolbar/toolbar.component";
 import { RecordsContainerComponent } from "./records-container/records-container.component";
+import { RecordDetailsComponent } from "./record-details/record-details.component";
+import { ItemsTableComponent } from "./items-table/items-table.component";
 
 import {
   MatIconModule,
@@ -56,7 +58,9 @@ describe("AppComponent", () => {
         MonthPickerComponent,
         DeleteDialogComponent,
         ToolbarComponent,
-        RecordsContainerComponent
+        RecordsContainerComponent,
+        RecordDetailsComponent,
+        ItemsTableComponent
       ],
       imports: [
         RouterTestingModule,
