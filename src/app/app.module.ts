@@ -40,6 +40,7 @@ import { DeleteDialogComponent } from "./delete-dialog/delete-dialog.component";
 import { ToolbarComponent } from "./toolbar/toolbar.component";
 import { RecordsContainerComponent } from "./records-container/records-container.component";
 import { RecordDetailsComponent } from "./record-details/record-details.component";
+import { ItemsTableComponent } from "./items-table/items-table.component";
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { RecordDetailsComponent } from "./record-details/record-details.componen
     DeleteDialogComponent,
     ToolbarComponent,
     RecordsContainerComponent,
-    RecordDetailsComponent
+    RecordDetailsComponent,
+    ItemsTableComponent
   ],
   imports: [
     BrowserModule,
