@@ -4,7 +4,7 @@ import {
   AngularFirestoreCollection,
   AngularFirestoreDocument
 } from "@angular/fire/firestore";
-import { map, switchMap } from "rxjs/operators";
+import { map } from "rxjs/operators";
 import { Moment } from "moment";
 
 export interface Record {
@@ -50,12 +50,6 @@ export class RecordsService {
     );
   }
 
-  getRecordByID(id: string) {
-    return this.afs.collection<Record>("records", ref =>
-      ref.orderBy("date", "desc").where("id", "==", id)
-    );
-  }
-
   addRecord(record: NewRecord, familyID: string, uid: string) {
     const newRecord: Record = {
       ...record,
@@ -64,6 +58,14 @@ export class RecordsService {
       date: new Date()
     };
     this.afs.collection<Record>("records").add(newRecord);
+  }
+
+  addItem(item: NewRecord, record: string) {
+    const newItem = {
+      ...item,
+      date: new Date()
+    };
+    this.afs.collection("records/" + record + "/items").add(newItem);
   }
 
   deleteRecord(id: String) {
