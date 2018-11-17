@@ -11,7 +11,19 @@
       <!-- Title Column -->
       <ng-container matColumnDef="title">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
-        <td mat-cell *matCellDef="let row">{{ row.title }}</td>
+        <td
+          mat-cell
+          *matCellDef="let row"
+          [matMenuTriggerFor]="menu"
+          [ngClass]="{ rtl: true }"
+        >
+          {{ row.title }}
+          <mat-menu #menu="matMenu">
+            <button (click)="handleDeleteClick(row)" mat-menu-item>
+              Delete
+            </button>
+          </mat-menu>
+        </td>
       </ng-container>
 
       <!-- Amount Column -->

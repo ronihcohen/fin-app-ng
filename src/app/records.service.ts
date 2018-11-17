@@ -72,4 +72,9 @@ export class RecordsService {
     this.recordDoc = this.afs.doc<Record>(`records/${id}`);
     this.recordDoc.delete();
   }
+
+  deleteItem(recordId: String, itemId: String) {
+    const itemDoc = this.afs.doc<Record>(`records/${recordId}/items/${itemId}`);
+    itemDoc.delete();
+  }
 }

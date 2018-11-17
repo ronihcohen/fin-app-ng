@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { MatPaginator, MatSort } from "@angular/material";
+import { MatPaginator, MatSort, MatDialog } from "@angular/material";
 import { ItemsTableDataSource } from "./items-table-datasource";
 import { ActivatedRoute } from "@angular/router";
 import { AngularFirestore } from "@angular/fire/firestore";
+import { RecordsService } from "../records.service";
+import { DeleteDialogComponent } from "../delete-dialog/delete-dialog.component";
 
 @Component({
   selector: "app-items-table",
@@ -19,7 +21,12 @@ export class ItemsTableComponent implements OnInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ["title", "amount"];
 
-  constructor(private route: ActivatedRoute, private afs: AngularFirestore) {}
+  constructor(
+    private route: ActivatedRoute,
+    private afs: AngularFirestore,
+    private records: RecordsService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit() {
     this.dataSource = new ItemsTableDataSource(
@@ -28,5 +35,15 @@ export class ItemsTableComponent implements OnInit {
       this.route.paramMap,
       this.afs
     );
+  }
+
+  handleDeleteClick(row) {
+    const dialogRef = this.dialog.open(DeleteDialogComponent);
+
+    dialogRef.afterClosed().subscribe(approved => {
+      if (approved) {
+        this.records.deleteItem(this.dataSource.recordId, row.id);
+      }
+    });
   }
 }

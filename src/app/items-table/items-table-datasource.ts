@@ -22,6 +22,7 @@ export class ItemsTableDataSource extends DataSource<ItemsTableItem> {
   itemsSubscription: Subscription;
   recordSubscription: Subscription;
   record: ItemsTableItem;
+  recordId: string;
 
   constructor(
     private paginator: MatPaginator,
@@ -43,13 +44,26 @@ export class ItemsTableDataSource extends DataSource<ItemsTableItem> {
 
     this.items$ = this.paramMap.pipe(
       switchMap(params => {
-        const id = params.get("id");
-        const recordDoc = this.afs.doc<ItemsTableItem>("records/" + id);
+        this.recordId = params.get("id");
+        const recordDoc = this.afs.doc<ItemsTableItem>(
+          "records/" + this.recordId
+        );
         this.recordSubscription = recordDoc
           .valueChanges()
           .subscribe(record => (this.record = record));
 
-        return recordDoc.collection<ItemsTableItem>("items").valueChanges();
+        return recordDoc
+          .collection<ItemsTableItem>("items")
+          .snapshotChanges()
+          .pipe(
+            map(actions =>
+              actions.map(a => {
+                const data = a.payload.doc.data();
+                const id = a.payload.doc.id;
+                return { id, ...data };
+              })
+            )
+          );
       })
     );
 
