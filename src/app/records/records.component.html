@@ -3,43 +3,39 @@
     <div class="row">
       <div class="col">
         <mat-form-field class="full-width">
-          <input
-            matInput
-            [formControl]="searchValue"
-            id="search-input"
-            placeholder="Search"
-          />
+          <input matInput
+                 [formControl]="searchValue"
+                 id="search-input"
+                 placeholder="Search" />
         </mat-form-field>
       </div>
       <div class="col">
-        <app-month-picker
-          (handleDateChange)="handleDateChange($event)"
-        ></app-month-picker>
+        <app-month-picker (handleDateChange)="handleDateChange($event)"></app-month-picker>
       </div>
     </div>
-    <table
-      mat-table
-      class="full-width-table"
-      [dataSource]="dataSource"
-      aria-label="Elements"
-    >
+    <table mat-table
+           class="full-width-table"
+           [dataSource]="dataSource"
+           aria-label="Elements">
       <ng-container matColumnDef="title">
-        <th mat-header-cell *matHeaderCellDef>Title</th>
-        <td
-          mat-cell
-          *matCellDef="let row"
-          [matMenuTriggerFor]="menu"
-          [ngClass]="{ rtl: true }"
-        >
+        <th mat-header-cell
+            *matHeaderCellDef>Title</th>
+        <td mat-cell
+            *matCellDef="let row"
+            [matMenuTriggerFor]="menu"
+            [ngClass]="{ rtl: true }">
           {{ row.title }}
           <mat-menu #menu="matMenu">
-            <button [routerLink]="['/record', row.id]" mat-menu-item>
+            <button [routerLink]="['/record', row.id]"
+                    mat-menu-item>
               Record details
             </button>
-            <button (click)="cloneRecord(row)" mat-menu-item>
+            <button (click)="cloneRecord(row)"
+                    mat-menu-item>
               Clone record
             </button>
-            <button (click)="handleDeleteClick(row)" mat-menu-item>
+            <button (click)="handleDeleteClick(row)"
+                    mat-menu-item>
               Delete
             </button>
           </mat-menu>
@@ -47,27 +43,35 @@
       </ng-container>
 
       <ng-container matColumnDef="amount">
-        <th mat-header-cell *matHeaderCellDef>Amount</th>
-        <td mat-cell *matCellDef="let row">
+        <th mat-header-cell
+            *matHeaderCellDef>Amount</th>
+        <td mat-cell
+            *matCellDef="let row">
           {{ row.amount | currency: "ILS" }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="date">
-        <th mat-header-cell *matHeaderCellDef>Date</th>
-        <td mat-cell *matCellDef="let row">
+        <th mat-header-cell
+            *matHeaderCellDef>Date</th>
+        <td mat-cell
+            *matCellDef="let row">
           {{ row.date?.toDate() | date: "dd/MM/yyyy" }}
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      <tr mat-header-row
+          *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row
+          *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
 
-    <div [hidden]="dataSource?.dataLength === 0" class="footer-text">
-      Total amount: {{ dataSource?.totalAmount | currency: "ILS" }}
+    <div [hidden]="dataSource?.dataLength === 0"
+         class="footer-text">
+      Total amount: {{ dataSource?.totalAmount | currency: "ILS" }}.
     </div>
-    <div class="footer-text" [hidden]="dataSource?.dataLength > 0">
+    <div class="footer-text"
+         [hidden]="dataSource?.dataLength > 0">
       No records found.
     </div>
   </mat-card-content>
