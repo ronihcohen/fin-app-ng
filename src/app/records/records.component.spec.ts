@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
+import { RouterModule } from "@angular/router";
 
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SimpleChange } from "@angular/core";
@@ -15,11 +16,15 @@ import {
 } from "@angular/material";
 import * as _moment from "moment";
 
+import { Router } from "@angular/router";
+
 import { RecordsService } from "../records.service";
 
 import { RecordsComponent } from "./records.component";
 import { MonthPickerComponent } from "../month-picker/month-picker.component";
 import { AngularFirestore } from "@angular/fire/firestore";
+import { ActivatedRoute } from "@angular/router";
+
 import { of } from "rxjs";
 
 describe("RecordsComponent", () => {
@@ -74,15 +79,18 @@ describe("RecordsComponent", () => {
         ReactiveFormsModule,
         MatInputModule,
         MatMenuModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        RouterModule
       ],
       providers: [
         { provide: AngularFirestore },
+        { provide: Router },
         { provide: RecordsService, useValue: RecordsServiceMock },
         {
           provide: MatDialog,
           useClass: MatDialogMock
-        }
+        },
+        { provide: ActivatedRoute }
       ]
     }).compileComponents();
   }));

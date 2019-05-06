@@ -43,9 +43,7 @@ describe("RecordsContainerComponent", () => {
     @Component({ selector: "app-add-record", template: "" })
     class AddRecordsComponent {
       @Input()
-      familyID: string;
-      @Input()
-      uid: string;
+      currentRecord: string;
     }
 
     @Component({ selector: "app-records", template: "" })

@@ -39,6 +39,8 @@ import { MonthPickerComponent } from "./month-picker/month-picker.component";
 import { DeleteDialogComponent } from "./delete-dialog/delete-dialog.component";
 import { ToolbarComponent } from "./toolbar/toolbar.component";
 import { RecordsContainerComponent } from "./records-container/records-container.component";
+import { RecordDetailsComponent } from "./record-details/record-details.component";
+import { ItemsTableComponent } from "./items-table/items-table.component";
 
 @NgModule({
   declarations: [
@@ -48,10 +50,13 @@ import { RecordsContainerComponent } from "./records-container/records-container
     MonthPickerComponent,
     DeleteDialogComponent,
     ToolbarComponent,
-    RecordsContainerComponent
+    RecordsContainerComponent,
+    RecordDetailsComponent,
+    ItemsTableComponent
   ],
   imports: [
     BrowserModule,
+    SettingsModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     BrowserAnimationsModule,
@@ -70,7 +75,6 @@ import { RecordsContainerComponent } from "./records-container/records-container
     MatDatepickerModule,
     MatSnackBarModule,
     MatDialogModule,
-    SettingsModule,
     MatMenuModule
   ],
   bootstrap: [AppComponent],

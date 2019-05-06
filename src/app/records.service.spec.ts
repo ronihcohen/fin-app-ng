@@ -73,8 +73,24 @@ describe("RecordsService", () => {
     service.addRecord(newRecord, "record-fid", "uid");
   });
 
+  it("should add new item", () => {
+    const service: RecordsService = TestBed.get(RecordsService);
+
+    const newRecord = {
+      title: "record",
+      amount: 1
+    };
+
+    service.addItem(newRecord, "record-fid");
+  });
+
   it("should delete record", () => {
     const service: RecordsService = TestBed.get(RecordsService);
     service.deleteRecord("id");
+  });
+
+  it("should delete item", () => {
+    const service: RecordsService = TestBed.get(RecordsService);
+    service.deleteItem("id", "itemId");
   });
 });

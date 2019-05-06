@@ -60,8 +60,21 @@ export class RecordsService {
     this.afs.collection<Record>("records").add(newRecord);
   }
 
+  addItem(item: NewRecord, record: string) {
+    const newItem = {
+      ...item,
+      date: new Date()
+    };
+    this.afs.collection("records/" + record + "/items").add(newItem);
+  }
+
   deleteRecord(id: String) {
     this.recordDoc = this.afs.doc<Record>(`records/${id}`);
     this.recordDoc.delete();
+  }
+
+  deleteItem(recordId: String, itemId: String) {
+    const itemDoc = this.afs.doc<Record>(`records/${recordId}/items/${itemId}`);
+    itemDoc.delete();
   }
 }

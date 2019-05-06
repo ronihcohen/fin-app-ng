@@ -1,13 +1,5 @@
 <mat-card class="general-card">
   <mat-card-content>
-    <div style="text-align: center;">
-      Total amount for {{currentDate | date: "MMMM"}} is <span style="font-weight:500;font-size: 16px;">{{ (dataSource?.dataLength === 0? 0 : dataSource?.totalAmount) | currency: "ILS" }}</span>
-    </div>
-  </mat-card-content>
-</mat-card>
-
-<mat-card class="general-card">
-  <mat-card-content>
     <div class="row">
       <div class="col">
         <mat-form-field class="full-width">
@@ -34,6 +26,10 @@
             [ngClass]="{ rtl: true }">
           {{ row.title }}
           <mat-menu #menu="matMenu">
+            <button [routerLink]="['/record', row.id]"
+                    mat-menu-item>
+              Record details
+            </button>
             <button (click)="cloneRecord(row)"
                     mat-menu-item>
               Clone record
@@ -55,13 +51,6 @@
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="business">
-        <th mat-header-cell
-            *matHeaderCellDef>Business</th>
-        <td mat-cell
-            *matCellDef="let row">{{ row.businessName }}</td>
-      </ng-container>
-
       <ng-container matColumnDef="date">
         <th mat-header-cell
             *matHeaderCellDef>Date</th>
@@ -77,6 +66,10 @@
           *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
 
+    <div [hidden]="dataSource?.dataLength === 0"
+         class="footer-text">
+      Total amount: {{ dataSource?.totalAmount | currency: "ILS" }}
+    </div>
     <div class="footer-text"
          [hidden]="dataSource?.dataLength > 0">
       No records found.

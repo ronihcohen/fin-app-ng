@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { AngularFirestore } from "@angular/fire/firestore";
-import { Observable } from "rxjs";
 
 export interface UserDetails {
   familyID: string;
@@ -19,9 +18,5 @@ export class FamilyService {
       .set({
         familyID: familyID
       });
-  }
-
-  getUserDetails(uid): Observable<UserDetails> {
-    return this.afs.doc<UserDetails>(`users/${uid}`).valueChanges();
   }
 }
